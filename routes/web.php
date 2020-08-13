@@ -3,6 +3,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+});
+
 Route::get('/category/{slug}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
 Route::get('/product/{slug}', 'Ecommerce\FrontController@show')->name('front.show_product');
 
