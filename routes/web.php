@@ -5,10 +5,9 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+    Route::patch('profile', 'ProfileController@update')->name('profile.update');
 });
 
-Route::get('/category/{slug}', 'Ecommerce\FrontController@categoryProduct')->name('front.category');
-Route::get('/product/{slug}', 'Ecommerce\FrontController@show')->name('front.show_product');
 
 	Auth::routes();
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -18,7 +17,15 @@ Route::get('/product/{slug}', 'Ecommerce\FrontController@show')->name('front.sho
 	Route::group(['middleware' => ['web','auth']], function()
 {
 	Route::get('/home', 'HomeController@index');
+	//user
+	Route::resource('user', 'UserController')->except(['show']);
 
+	Route::get('/user', 'UserController@index')->name('user.index');
+	Route::get('/user/cari', 'UserController@cari')->name('user.cari');
+	Route::post('/user', 'UserController@store')->name('user.store');
+	Route::get('/user/{user_id}/edit', 'UserController@edit')->name('user.edit');
+	Route::put('/user/{user_id}', 'UserController@update')->name('user.update');
+	Route::delete('/user/{user_id}', 'UserController@destroy')->name('user.destroy');
 	//category
 	Route::get('/category', 'CategoryController@index')->name('category.index');
 	Route::post('/category', 'CategoryController@store')->name('category.store');

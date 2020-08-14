@@ -6,6 +6,12 @@
             </a>
         </li>
 
+        <li class="nav-title">MANAJEMEN USER</li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.index') }}">
+                <i class="nav-icon icon-drop"></i> Customer
+            </a>
+        </li>
         <li class="nav-title">MANAJEMEN PRODUK</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('category.index') }}">

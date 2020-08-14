@@ -23,6 +23,9 @@
                 <strong>Account</strong>
             </div>
             <div class="divider"></div>
+            <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                <i class="fa fa-shield"></i> Edit Profile
+            </a>
             <a class="dropdown-item" href="#">
                 <i class="fa fa-shield"></i> Lock Account
             </a>

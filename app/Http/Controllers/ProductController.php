@@ -126,15 +126,4 @@ class ProductController extends Controller
             return redirect()->back()->with(['success' => 'Upload Produk Dijadwalkan']);
         }
     }
-
-    public function uploadViaMarketplace(Request $request)
-    {
-        $this->validate($request, [
-            'marketplace' => 'required|string',
-            'username' => 'required|string'
-        ]);
-
-        MarketplaceJob::dispatch($request->username, 10);
-        return redirect()->back()->with(['success' => 'Produk Dalam Antrian']);
-    }
 }

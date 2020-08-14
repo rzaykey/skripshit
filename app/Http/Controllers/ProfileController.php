@@ -13,4 +13,13 @@ class ProfileController extends Controller
             'user' => $request->user()
         ]);
     }
+
+    public function update(Request $request)
+{
+    $request->user()->update(
+        $request->all()
+    );
+
+    return redirect()->route('profile.edit');
+}
 }
