@@ -48,7 +48,7 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
-                                            <th>Created At</th>
+                                            <th>Tanggal</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -57,12 +57,12 @@
                                         @forelse ($product as $row)
                                         <tr>
                                             <td>
-                                                <img src="{{ asset('public/products' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}">
+                                                <img src="{{ asset('products/' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}">
                                             </td>
                                             <td>
                                                 <strong>{{ $row->name }}</strong><br>
                                                 <label>Kategori: <span class="badge badge-info">{{ $row->category->name }}</span></label><br>
-                                                <label>Berat: <span class="badge badge-info">{{ $row->weight }} gr</span></label>
+                                                <label>Berat: <span class="badge badge-info">{{ $row->weight }} {{ $row->type_weight }}</span></label>
                                             </td>
                                             <td>Rp {{ number_format($row->price) }}</td>
                                             <td>{{ $row->created_at->format('d-m-Y') }}</td>

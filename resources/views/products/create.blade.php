@@ -27,7 +27,7 @@
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Deskripsi</label>\
+                                    <label for="description">Deskripsi</label>
                                     <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
                                     <p class="text-danger">{{ $errors->first('description') }}</p>
                                 </div>
@@ -62,8 +62,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="weight">Berat</label>
-                                    <input type="number" name="weight" class="form-control" value="{{ old('weight') }}" required>
+                                    <input type="number" id="weight" name="weight" class="form-control" value="{{ old('weight') }}" required>
+
                                     <p class="text-danger">{{ $errors->first('weight') }}</p>
+                                </div>
+                                <div id="type-weight" class="form-group">
+                                    <label for="type-weight">Tipe Berat</label>
+                                    <select required name="type_weights" id="type-weights" class="form-control">
+                                        <option value="">Pilih</option>
+                                        <option value="Kilogram">Kilogram</option>
+                                        <option value="Gram">Gram</option>
+                                        <option value="Miligram">MiliGram</option>
+                                        <option value="Mili">Mili</option>
+                                        <option value="isNull">Lainnya</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Foto Produk</label>

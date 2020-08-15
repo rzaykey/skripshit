@@ -12,6 +12,9 @@ use App\Jobs\MarketplaceJob;
 
 class ProductController extends Controller
 {
+    protected $product, $category, $file, $productjob, $marketplacejob;
+
+
     public function index()
     {
         $product = Product::with(['category'])->orderBy('created_at', 'DESC');
@@ -38,11 +41,11 @@ class ProductController extends Controller
             'weight' => 'required|integer',
             'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
-
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')) {
+            $to = 'products';
             $file = $request->file('image');
             $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/products', $filename);
+            $file->move($to, $filename);
 
             $product = Product::create([
                 'name' => $request->name,
@@ -52,6 +55,7 @@ class ProductController extends Controller
                 'image' => $filename,
                 'price' => $request->price,
                 'weight' => $request->weight,
+                'type_weight' => $request->type_weights,
                 'status' => $request->status
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
