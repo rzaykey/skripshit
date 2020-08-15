@@ -12,9 +12,6 @@ use App\Jobs\MarketplaceJob;
 
 class ProductController extends Controller
 {
-    protected $product, $category, $file, $productjob, $marketplacejob;
-
-
     public function index()
     {
         $product = Product::with(['category'])->orderBy('created_at', 'DESC');
@@ -24,13 +21,11 @@ class ProductController extends Controller
         $product = $product->paginate(10);
         return view('products.index', compact('product'));
     }
-
     public function create()
     {
         $category = Category::orderBy('name', 'DESC')->get();
         return view('products.create', compact('category'));
     }
-
     public function store(Request $request)
     {
         $this->validate($request, [
