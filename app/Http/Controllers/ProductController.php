@@ -8,7 +8,6 @@ use App\Product;
 use App\Category;
 use File;
 use App\Jobs\ProductJob;
-use App\Jobs\MarketplaceJob;
 
 class ProductController extends Controller
 {
@@ -36,6 +35,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
             'weight' => 'required|integer',
+            'stock' => 'required|integer',
             'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
 
@@ -52,7 +52,8 @@ class ProductController extends Controller
                 'image' => $filename,
                 'price' => $request->price,
                 'weight' => $request->weight,
-                'status' => $request->status
+                'status' => $request->status,
+                'stock' => $request->stock
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }
@@ -73,6 +74,7 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
             'weight' => 'required|integer',
+            'stock' => 'required|integer',
             'image' => 'nullable|image|mimes:png,jpeg,jpg'
         ]);
 
@@ -91,6 +93,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'price' => $request->price,
             'weight' => $request->weight,
+            'stock' => $request->stock,
             'image' => $filename
         ]);
         return redirect(route('product.index'))->with(['success' => 'Data Produk Diperbaharui']);

@@ -66,6 +66,11 @@
                                     <p class="text-danger"><?php echo e($errors->first('weight')); ?></p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input type="number" name="stock" class="form-control" value="<?php echo e(old('stock')); ?>" required>
+                                    <p class="text-danger"><?php echo e($errors->first('stock')); ?></p>
+                                </div>
+                                <div class="form-group">
                                     <label for="image">Foto Produk</label>
                                     <input type="file" name="image" class="form-control" value="<?php echo e(old('image')); ?>" required>
                                     <p class="text-danger"><?php echo e($errors->first('image')); ?></p>

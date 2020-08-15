@@ -48,6 +48,7 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
+                                            <th>Stock</th>
                                             <th>Created At</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -65,6 +66,7 @@
                                                 <label>Berat: <span class="badge badge-info"><?php echo e($row->weight); ?> gr</span></label>
                                             </td>
                                             <td>Rp <?php echo e(number_format($row->price)); ?></td>
+                                            <td><?php echo e($row->stock); ?></td>
                                             <td><?php echo e($row->created_at->format('d-m-Y')); ?></td>
                                             <td><?php echo $row->status_label; ?></td>
                                             <td>
