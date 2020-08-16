@@ -47,7 +47,7 @@
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
-                                            <th>Status</th>
+                                            <th>Level</th>
                                             <th>Photo</th>
                                             <th>Created at</th>
                                             <th>Aksi</th>
