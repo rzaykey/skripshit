@@ -46,4 +46,20 @@ class UserController extends Controller
             return redirect(route('user.index'))->with(['success' => 'User Baru Ditambahkan']);
         
     }
+    public function destroy($id)
+    {
+        if($id == '' || $id == null) {
+            return redirect()->back()->with(['error' => 'Something went wrong ']);
+        }
+        $delete = User::deletes($id);
+        if($delete)
+        {
+            echo "<script>alert('Dihapus') </script>";
+            echo "<script>window.location.href='/user'</script>";
+        }
+    }
+    public function edit($id)
+    {
+        return view('user.update');
+    }
 }
