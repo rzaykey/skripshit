@@ -4,7 +4,7 @@
     <title>List Kota</title>
 @endsection
 
-@section('content')
+@section('content') 
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
@@ -26,15 +26,13 @@
                                     <input type="text" name="name" class="form-control" required>
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="type" class="col-md-4 col-form-label text-md-right">{{ __('type') }}</label>
-                                    <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="type">{{ __('type') }}</label>
                                         <select class="form-control" name="type">
                                             <option>--Pilih Jenis--</option>
                                             <option value="Kabupaten">Kabupaten</option>
                                             <option value="Kota">Kota</option>
                                         </select>
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="postal_code">Kode Pos</label>
@@ -51,9 +49,6 @@
                                     </select>
                                     <p class="text-danger">{{ $errors->first('province_id') }}</p>
                                 </div>
-
-                                
-
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-sm">Tambah</button>
                                 </div>

@@ -20,7 +20,7 @@ class CityController extends Controller
         }
         $city = $city->paginate(10);
         $province = Province::orderBy('name', 'DESC')->get();
-        return view('cities.index', compact('city'));
+        return view('cities.index', compact('city','province'));
     }
 
     public function create()
@@ -43,5 +43,5 @@ class CityController extends Controller
             ]);
             return redirect(route('city.index'))->with(['success' => 'Kota Baru Ditambahkan']);
         }
-    
+     
 }
