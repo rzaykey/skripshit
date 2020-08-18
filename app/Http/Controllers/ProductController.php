@@ -36,7 +36,8 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'weight' => 'required|integer',
             'stock' => 'required|integer',
-            'image' => 'required|image|mimes:png,jpeg,jpg'
+            'image' => 'required|image|mimes:png,jpeg,jpg',
+            'type_weight' => 'required'
         ]);
 
         if($request->hasFile('image')) {
@@ -54,7 +55,8 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'weight' => $request->weight,
                 'status' => $request->status,
-                'stock' => $request->stock
+                'stock' => $request->stock,
+                'type_weight' => $request->type_weight
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }

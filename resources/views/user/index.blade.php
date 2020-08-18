@@ -69,7 +69,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <a href="{{ route('user.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <button class="btn btn-danger btn-sm">Hapus</button>
+                                                    <button onclick="return confirm('Hapus ?')" class="btn btn-danger btn-sm">Hapus</button>
                                                 </form>
                                             </td>
                                         </tr>
