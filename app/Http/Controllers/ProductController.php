@@ -56,7 +56,7 @@ class ProductController extends Controller
                 'weight' => $request->weight,
                 'status' => $request->status,
                 'stock' => $request->stock,
-                'type_weight' => $request->type_weight
+                'weight_type' => $request->type_weight
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }

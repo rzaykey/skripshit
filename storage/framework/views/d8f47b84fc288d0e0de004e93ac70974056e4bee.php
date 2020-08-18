@@ -27,7 +27,7 @@
                                     <p class="text-danger"><?php echo e($errors->first('name')); ?></p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Deskripsi</label>\
+                                    <label for="description">Deskripsi</label>
                                     <textarea name="description" id="description" class="form-control"><?php echo e(old('description')); ?></textarea>
                                     <p class="text-danger"><?php echo e($errors->first('description')); ?></p>
                                 </div>
