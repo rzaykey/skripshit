@@ -4,7 +4,7 @@
     <title>List Kota</title>
 @endsection
 
-@section('content')
+@section('content') 
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
