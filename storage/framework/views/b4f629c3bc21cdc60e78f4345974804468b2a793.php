@@ -30,6 +30,43 @@
         </li>
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon icon-list"></i> Laporan
+            </a>
+            <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Transaksi
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Keuangan
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Pengiriman
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Penjualan
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Supplier
+                    </a>
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Pelanggan
+                    </a>
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Stok
+                    </a>
+                    </a>
+                    </a>
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon icon-report"></i> Laporan Barang
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="nav-icon icon-settings"></i> Pengaturan
             </a>
             <ul class="nav-dropdown-items">
