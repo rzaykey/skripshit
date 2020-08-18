@@ -103,7 +103,6 @@ unset($__errorArgs, $__bag); ?>
                             <div class="col-md-6">
                                 <select class="form-control" name="status">
                                     <option>--Pilih Hak Akses--</option>
-                                    <option value="2">Owner</option>
                                     <option value="1">Admin</option>
                                     <option value="0">User</option>
                                 </select>
@@ -114,7 +113,7 @@ unset($__errorArgs, $__bag); ?>
                             <label for="image" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Image')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="image" type="text" class="form-control <?php $__errorArgs = ['image'];
+                                <input id="image" type="file" class="form-control <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -137,8 +136,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
-
-
+                        
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Password')); ?></label>
 
@@ -177,7 +175,7 @@ unset($__errorArgs, $__bag); ?>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary">Create
                                 </button>
                             </div>
                         </div>

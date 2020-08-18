@@ -39,10 +39,11 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
 
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')) {
+            $to = 'products';
             $file = $request->file('image');
             $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/products', $filename);
+            $file->move($to, $filename);
 
             $product = Product::create([
                 'name' => $request->name,
@@ -80,10 +81,11 @@ class ProductController extends Controller
 
         $product = Product::find($id);
         $filename = $product->image;
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')) {
+            $to = 'products';
             $file = $request->file('image');
             $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/products', $filename);
+            $file->move($to, $filename);
             File::delete(storage_path('app/public/products/' . $product->image));
         }
 

@@ -58,7 +58,7 @@
                                         <?php $__empty_1 = true; $__currentLoopData = $product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
                                             <td>
-                                                <img src="<?php echo e(asset('public/products' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
+                                                <img src="<?php echo e(asset('products/' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
                                             </td>
                                             <td>
                                                 <strong><?php echo e($row->name); ?></strong><br>

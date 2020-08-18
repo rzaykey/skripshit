@@ -44,11 +44,11 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
                                             <th>Status</th>
-                                            <th>Photo</th>
                                             <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -56,11 +56,13 @@
                                     <tbody>
                                         @forelse ($user as $row)
                                         <tr>
+                                        <td>
+                                            <img src="{{ asset('users/' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}">
+                                        </td>
                                             <td><strong>{{ $row->name }}</strong></td>
                                             <td>{{ $row->email }}<br></td>
                                             <td>{{ $row->address }}<br></td>
                                             <td>{!! $row->status_label !!}</td>
-                                            <td>{{ $row->image }}<br></td>
                                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 <form action="{{ route('user.destroy', $row->id) }}" method="post">
