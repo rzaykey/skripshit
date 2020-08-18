@@ -16,7 +16,9 @@ class UsersTableSeeder extends Seeder
         	'name' => 'amir',
             'email' => 'amir@tes.com',
             'address' => 'Banjarmasin',
-        	'password' => bcrypt('tes')
+            'password' => bcrypt('tes'),
+            'address' => '122',
+            'image' => 'ok'
         ]);
     }
 }
