@@ -41,7 +41,6 @@
                                     <input type="text" name="postal_code" class="form-control" required>
                                     <p class="text-danger">{{ $errors->first('postal_code') }}</p>
                                 </div>
-                                {{ dd(province) }}
                                 <div class="form-group">
                                     <label for="province_id">Provinsi</label>
                                     <select name="province_id" class="form-control">
