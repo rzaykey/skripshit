@@ -27,7 +27,7 @@
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Deskripsi</label>\
+                                    <label for="description">Deskripsi</label>
                                     <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
                                     <p class="text-danger">{{ $errors->first('description') }}</p>
                                 </div>
@@ -59,6 +59,14 @@
                                     <label for="price">Harga</label>
                                     <input type="number" name="price" class="form-control" value="{{ old('price') }}" required>
                                     <p class="text-danger">{{ $errors->first('price') }}</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="weight">Tipe Berat</label>
+                                    <select name="type_weight" id="type_weight" class="form-control">
+                                        <option value="Pilih">Pilih</option>
+                                        <option value="Kilogram">Kg</option>
+                                        <option value="Miligram">Ml</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="weight">Berat</label>
