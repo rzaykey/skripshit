@@ -46,8 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::delete('/product/{product_id}', 'ProductController@destroy')->name('product.destroy');
 
 	//city
-	Route::get('/city', 'CityController@index')->name('city.index');
-	Route::post('/city', 'CityController@store')->name('city.store');
+	Route::resource('city', 'CityController')->except(['show']);
 
 	
 });		

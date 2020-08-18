@@ -31,12 +31,10 @@ class CityController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'description' => 'required',
-            'province_id' => 'required|exists:province,id'
+            'province_id' => 'required|exists:provinces,id'
         ]);
             $city = City::create([
                 'name' => $request->name,
-                'slug' => $request->name,
                 'province_id' => $request->province_id,
                 'type' => $request->type,
                 'postal_code' => $request->postal_code
