@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class Province extends Model
 {
     //
-    protected $fillable = ['name'];
+    protected $fillable = [];
 
     public function getNameAttribute($value)
     {

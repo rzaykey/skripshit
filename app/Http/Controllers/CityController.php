@@ -19,12 +19,12 @@ class CityController extends Controller
             $city = $city->where('name', 'LIKE', '%' . request()->q . '%');
         }
         $city = $city->paginate(10);
+        $province = Province::orderBy('name', 'DESC')->get();
         return view('cities.index', compact('city'));
     }
 
     public function create()
     {
-        $province = Province::orderBy('name', 'DESC')->get();
         return view('cities.index', compact('city'));
     }
     public function store(Request $request)
