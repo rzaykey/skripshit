@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
             'address' => 'Banjarmasin',
             'password' => bcrypt('tes'),
             'address' => '122',
-            'image' => 'ok'
+            'image' => 'ok',
+            'status' => 1
         ]);
     }
 }

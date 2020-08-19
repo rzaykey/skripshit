@@ -5,6 +5,24 @@
                 <i class="nav-icon icon-speedometer"></i> Dashboard
             </a>
         </li>
+        <li class="nav-title">MANAJEMEN TRANSAKSI</li>
+        <li class="nav-item">
+        <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
+                <i class="nav-icon icon-puzzle"></i> Transaksi Berhasil (1)
+            </a>
+        <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
+                <i class="nav-icon icon-puzzle"></i> Transaksi Expire (1)
+            </a>
+            <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
+                <i class="nav-icon icon-puzzle"></i> Menunggu Dikirim (1)
+            </a>
+            <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
+                <i class="nav-icon icon-puzzle"></i> Barang Diterima (1)
+            </a>
+            <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
+                <i class="nav-icon icon-puzzle"></i> Barang Return (1)
+            </a>
+        </li>
         <li class="nav-title">MANAJEMEN USER</li>
         <li class="nav-item">
             <a class="nav-link" href="<?php echo e(route('user.index')); ?>">
@@ -28,6 +46,8 @@
                 <i class="nav-icon icon-puzzle"></i> Kota
             </a>
         </li>
+        <li class="nav-title">MANAJEMEN LAPORAN</li>
+
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
                 <i class="nav-icon icon-list"></i> Laporan

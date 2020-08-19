@@ -6,8 +6,10 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use File;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Socialite;
 
 class UserController extends Controller
 {
@@ -92,8 +94,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        File::delete(storage_path('app/public/users/' . $user->image));
         $user->delete();
         return redirect(route('user.index'))->with(['success' => 'User Sudah Dihapus']);
     }
+
+    
 }
