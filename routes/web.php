@@ -26,6 +26,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('/user/{user_id}', 'UserController@update')->name('user.update');
 	Route::delete('/user/{user_id}', 'UserController@destroy')->name('user.destroy');
 
+	//customer
+	Route::resource('customer', 'CustomerController')->except(['show']);
+	Route::get('/customer/cari', 'CustomerController@cari')->name('customer.cari');
+
 	//category
 	Route::get('/category', 'CategoryController@index')->name('category.index');
 	Route::post('/category', 'CategoryController@store')->name('category.store');
