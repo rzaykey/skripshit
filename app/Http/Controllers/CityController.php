@@ -41,5 +41,31 @@ class CityController extends Controller
             ]);
             return redirect(route('city.index'))->with(['success' => 'Kota Baru Ditambahkan']);
         }
-     
+        public function update(Request $request, $id)
+        {
+            $this->validate($request, [
+                'name' => 'required|string|max:50|unique:categories,name,' . $id
+            ]);
+            $city = City::find($id);
+            $city->update([
+                'name' => $request->name,
+                'province_id' => $request->province_id,
+                'type' => $request->type,
+                'postal_code' => $request->postal_code
+            ]);
+            return redirect(route('city.index'))->with(['success' => 'Kota Diperbaharui!']);
+        }
+        public function edit($id)
+        {
+            $city = City::find($id);
+            $province = Province::orderBy('name', 'DESC')->get();
+            return view('cities.edit', compact('city', 'province'));
+        }
+
+        public function destroy($id)
+    {
+        $city = City::find($id);
+        $city->delete();
+        return redirect(route('city.index'))->with(['success' => 'Kota Sudah Dihapus']);
+    }
 }

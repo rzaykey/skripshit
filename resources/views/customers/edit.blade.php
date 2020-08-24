@@ -59,7 +59,7 @@
 
                         <div class="form-group row">
                             <label for="district_id" class="col-md-4 col-form-label text-md-right">{{ __('District id') }}</label>
-
+                            <div class="col-md-6">
                             <select name="district_id" class="form-control">
                                 <option value="">Pilih</option>
                                 @foreach ($district as $row)
@@ -67,6 +67,7 @@
                                 @endforeach
                             </select>
                             <p class="text-danger">{{ $errors->first('district_id') }}</p>
+                            </div>
                         </div>
 
                         <div class="form-group row">

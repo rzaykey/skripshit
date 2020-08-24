@@ -18,7 +18,6 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = Customer::all();
-        $district = District::orderBy('name', 'DESC')->get();
     	return view('customers.index', compact('customer'));
     }
 
@@ -32,16 +31,17 @@ class CustomerController extends Controller
 	}
     public function create()
     {
+        $district = District::all();
         $customer = Customer::all();
-        return view('customers.create', compact('customer'));
+        return view('customers.create', compact('customer','district'));
     }
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'district_id' => 'required|exists:districts,id',
-            'password' => ['required', 'string', 'min:5', 'confirmed'],            
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'district_id' => 'nullable|exists:districts,id',
+            'password' => 'required|string|min:5|confirmed',            
             'image' => 'nullable|image|mimes:png,jpeg,jpg'
         ]);
         
@@ -53,12 +53,12 @@ class CustomerController extends Controller
 
             $customer = Customer::create([
                 'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'address' => $request['address'],
-            'district_id' => $request['distric_id'],
-            'status' => $request['status'],
-            'image' => $filename,
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'address' => $request['address'],
+                'district_id' => $request['district_id'],
+                'status' => $request['status'],
+                'image' => $filename,
             ]);
             return redirect(route('customer.index'))->with(['success' => 'Pelanggan Baru Ditambahkan']);
         }
@@ -68,7 +68,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $district = District::orderBy('name', 'DESC')->get();
-        return view('customers.edit', compact('customer'));
+        return view('customer.edit', compact('customer','district'));
     }
 
     public function update(Request $request, $id)
@@ -91,14 +91,15 @@ class CustomerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'address' => $request->address,
+            'district_id' => $request->district_id,
             'image' => $filename
     	]);
-    	return redirect(route('customers.index'))->with(['success' => 'Customer Diperbaharui!']);
+    	return redirect(route('customer.index'))->with(['success' => 'Customer Diperbaharui!']);
     }
     public function destroy($id)
     {
         $customer = Customer::find($id);
         $customer->delete();
-        return redirect(route('customers.index'))->with(['success' => 'Customer Sudah Dihapus']);
+        return redirect(route('customer.index'))->with(['success' => 'Customer Sudah Dihapus']);
     }
 }

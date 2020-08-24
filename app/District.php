@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class District extends Model
 {
-    protected $fillable = [];
+    protected $guarded = [];
     public function getNameAttribute($value)
     {
         return ucfirst($value);
@@ -17,7 +17,7 @@ class District extends Model
     {
         $this->attributes['slug'] = Str::slug($value);
     }
-    public  function customer()
+    public function customer()
     {
         return $this->hasMany(Customer::class);
     }

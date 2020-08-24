@@ -72,7 +72,7 @@
 						<div class="f_p_item">
 							<div class="f_p_img">
                 <!-- KEMUDIAN TAMPILKAN IMAGENYA DARI FOLDER /PUBLIC/STORAGE/PRODUCTS -->
-                <img class="img-fluid" src="<?php echo e(asset('storage/products/' . $row->image)); ?>" alt="<?php echo e($row->name); ?>">
+                <img class="img-fluid" src="<?php echo e(asset('products/' . $row->image)); ?>" alt="<?php echo e($row->name); ?>">
 								<div class="p_icon">
 									<a href="<?php echo e(url('/product/' . $row->slug)); ?>">
 										<i class="lnr lnr-cart"></i>
@@ -104,4 +104,5 @@
 	</section>
 	<!--================End Feature Product Area =================-->
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.ecommerce', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Tes\resources\views/ecommerce/index.blade.php ENDPATH**/ ?>
