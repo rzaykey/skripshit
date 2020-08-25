@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('title'); ?>
     <title>Login</title>
 <?php $__env->stopSection(); ?>
@@ -57,6 +59,7 @@
                                 </div>
                             </div>
                         </form>
+                        <hr>
                     </div>
                 </div>
                 <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">

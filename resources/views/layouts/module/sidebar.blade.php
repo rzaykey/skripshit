@@ -26,7 +26,10 @@
         <li class="nav-title">MANAJEMEN USER</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Customer
+                <i class="nav-icon icon-puzzle"></i> Admin
+            </a>
+            <a class="nav-link" href="{{ route('customer.index') }}">
+                <i class="nav-icon icon-puzzle"></i> Pelanggan
             </a>
         </li>
         <li class="nav-title">MANAJEMEN PRODUK</li>

@@ -16,14 +16,16 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Kota Baru</h4>
+                            <h4 class="card-title">Edit</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('city.store') }}" method="post">
+                            <form action="{{ route('city.update', $city->id) }}" method="post">
                                 @csrf
+                                @method('PUT')
+
                                 <div class="form-group">
                                     <label for="name">Nama</label>
-                                    <input type="text" name="name" class="form-control" required>
+                                    <input type="text" name="name" class="form-control" value="{{ $city->name }}" required>
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -36,7 +38,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="postal_code">Kode Pos</label>
-                                    <input type="text" name="postal_code" class="form-control" required>
+                                    <input type="text" name="postal_code" value="{{ $city->postal_code }}" class="form-control" required>
                                     <p class="text-danger">{{ $errors->first('postal_code') }}</p>
                                 </div>
                                 <div class="form-group">
@@ -50,65 +52,9 @@
                                     <p class="text-danger">{{ $errors->first('province_id') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-primary btn-sm">Tambah</button>
+                                    <button class="btn btn-primary btn-sm">Edit</button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">List Kota</h4>
-                        </div>
-                        <div class="card-body">
-                            @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-
-                            @if (session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-
-                            <div class="table-responsive">
-                                <table class="table table-hover table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Kota</th>
-                                            <th>Jenis</th>
-                                            <th>Kode Pos</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($city as $val)
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <strong>{{ $val->name }}</strong><br>
-                                                <label>Provinsi: <span class="badge badge-info">{{ $val->province->name }}</span></label><br>
-                                            </td>
-                                            <td>{{ $val->type }}</td>
-                                            <td>{{ $val->postal_code }}</td>
-                                            <td>
-                                                <form action="#" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                                                    <button class="btn btn-danger btn-sm">Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center">Tidak ada data</td>
-                                        </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            {!! $city->links() !!}
                         </div>
                     </div>
                 </div>

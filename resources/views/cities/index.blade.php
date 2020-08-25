@@ -92,10 +92,10 @@
                                             <td>{{ $val->type }}</td>
                                             <td>{{ $val->postal_code }}</td>
                                             <td>
-                                                <form action="#" method="post">
+                                                <form action="{{ route('city.destroy', $val->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                                    <a href="{{ route('city.edit', $val->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                                     <button class="btn btn-danger btn-sm">Hapus</button>
                                                 </form>
                                             </td>

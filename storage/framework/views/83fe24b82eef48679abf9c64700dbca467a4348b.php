@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 
 <head>
@@ -42,9 +41,8 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container-fluid">
 					<!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand" href="#">
-				        <li class="breadcrumb-item active">Rupaka Store</li>
-				    </a>
+                    <a class="navbar-brand logo_h" href="<?php echo e(url('/')); ?>">Rupaka Store
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 					 aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -80,7 +78,7 @@
 									</li>
 									<hr>
 									<li class="nav-item">
-										<a href="#" class="icons">
+										<a href="<?php echo e(route('front.list_cart')); ?>" class="icons">
 											<i class="lnr lnr lnr-cart"></i>
 										</a>
 									</li>
@@ -213,7 +211,7 @@
 				<p class="col-lg-12 footer-text text-center">
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> 
                     All rights reserved | This template is made with 
-                    <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Irfan</a>
+                    <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Rupaka Store</a>
 				</p>
 			</div>
 		</div>

@@ -1,22 +1,32 @@
 <?php
-Route::get('/', function () {
+//front
+Route::get('/', 'FrontController@index')->name('front.index');
+Route::get('/produk', 'FrontController@product')->name('front.produk');
+Route::get('/category/{slug}', 'FrontController@categoryProduct')->name('front.category');
+Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
+
+//cart
+Route::post('cart', 'CartController@addToCart')->name('front.cart');
+Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
+Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
+
+
+//admin
+Route::get('/admin', function () {
     return view('welcome');
 });
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
     Route::patch('profile', 'ProfileController@update')->name('profile.update');
 });
-
-
 	Auth::routes();
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::group(['middleware' => 'web'], function(){
 	Route::auth();
 });
-	Route::group(['middleware' => ['web','auth']], function()
-{
+	Route::group(['middleware' => ['web','auth']], function(){
 	Route::get('/home', 'HomeController@index');
-	
+
 	//user
 	Route::resource('user', 'UserController')->except(['show']);
 	Route::get('/user', 'UserController@index')->name('user.index');
@@ -25,6 +35,15 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user/{user_id}/edit', 'UserController@edit')->name('user.edit');
 	Route::put('/user/{user_id}', 'UserController@update')->name('user.update');
 	Route::delete('/user/{user_id}', 'UserController@destroy')->name('user.destroy');
+
+	//customer
+	Route::resource('customer', 'CustomerController')->except(['show']);
+	Route::get('/customer/cari', 'CustomerController@cari')->name('customer.cari');
+	Route::post('/customer', 'CustomerController@store')->name('costumer.store');
+	Route::get('/customer/{customer_id}/edit', 'CustomerController@edit')->name('customer.edit');
+	Route::put('/customer/{customer_id}', 'CustomerController@update')->name('customer.update');
+	Route::delete('/customer/{customer_id}', 'CustomerController@destroy')->name('customer.destroy');
+	
 
 	//category
 	Route::get('/category', 'CategoryController@index')->name('category.index');
@@ -38,14 +57,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/product/bulk', 'ProductController@massUploadForm')->name('product.bulk');
     Route::post('/product/bulk', 'ProductController@massUpload')->name('product.saveBulk');
     Route::post('/product/marketplace', 'ProductController@uploadViaMarketplace')->name('product.marketplace');
-	// Route::get('/product', 'ProductController@index')->name('product.index');
-	// Route::post('/product', 'ProductController@store')->name('product.store');
-	// Route::get('/product/{product_id}/edit', 'ProductController@edit')->name('product.edit');
-	// Route::put('/product/{product_id}', 'ProductController@update')->name('product.update');
-	// Route::delete('/product/{product_id}', 'ProductController@destroy')->name('product.destroy');
 
 	//city
 	Route::resource('city', 'CityController')->except(['show']);
-
-	
+	Route::get('/city/{city_id}/edit', 'CityController@edit')->name('city.edit');
+	Route::put('/city/{city_id}', 'CityController@update')->name('city.update');
+	Route::delete('/city/{city_id}', 'CityController@destroy')->name('cit	y.destroy');	
 });		
