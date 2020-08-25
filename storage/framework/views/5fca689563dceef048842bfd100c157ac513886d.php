@@ -74,14 +74,14 @@
                 <!-- KEMUDIAN TAMPILKAN IMAGENYA DARI FOLDER /PUBLIC/STORAGE/PRODUCTS -->
                 <img class="img-fluid" src="<?php echo e(asset('products/' . $row->image)); ?>" alt="<?php echo e($row->name); ?>">
 								<div class="p_icon">
-									<a href="<?php echo e(url('/product/' . $row->slug)); ?>">
+									<a href="<?php echo e(url('/produk/' . $row->slug)); ?>">
 										<i class="lnr lnr-cart"></i>
 									</a>
 								</div>
 							</div>
               <!-- KETIKA PRODUK INI DIKLIK MAKA AKAN DIARAHKAN KE URL DIBAWAH -->
               <!-- HANYA SAJA URL TERSEBUT BELUM DISEDIAKAN PADA ARTIKEL KALI INI -->
-              <a href="<?php echo e(url('/product/' . $row->slug)); ?>">
+              <a href="<?php echo e(url('/produk/' . $row->slug)); ?>">
                 <!-- TAMPILKAN NAMA PRODUK -->
                  <h4><?php echo e($row->name); ?></h4>
 							</a>

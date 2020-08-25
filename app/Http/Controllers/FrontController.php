@@ -21,8 +21,7 @@ class FrontController extends Controller
     public function product()
     {
         $products = Product::orderBy('created_at', 'DESC')->paginate(12);
-        $categories = Category::with(['child'])->withCount(['child'])->getParent()->orderBy('name', 'ASC')->get();
-        return view('ecommerce.product', compact('products', 'categories'));
+        return view('ecommerce.product', compact('products'));
     }
 
     public function categoryProduct($slug)
