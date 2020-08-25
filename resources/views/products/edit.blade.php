@@ -68,9 +68,14 @@
                                     <p class="text-danger">{{ $errors->first('weight') }}</p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input type="number" name="stock" class="form-control" value="{{ $product->stock }}" required>
+                                    <p class="text-danger">{{ $errors->first('stock') }}</p>
+                                </div>
+                                <div class="form-group">
                                     <label for="image">Foto Produk</label>
                                     <br>
-                                    <img src="{{ asset('storage/products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}">
+                                    <img src="{{ asset('products/' . $product->image) }}" width="100px" height="100px" alt="{{ $product->name }}">
                                     <hr>
                                     <input type="file" name="image" class="form-control">
                                     <p><strong>Biarkan kosong jika tidak ingin mengganti gambar</strong></p>

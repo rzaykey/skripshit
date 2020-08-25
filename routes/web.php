@@ -2,7 +2,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', 'ProfileController@edit')->name('profile.edit');
     Route::patch('profile', 'ProfileController@update')->name('profile.update');
@@ -17,15 +16,16 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => ['web','auth']], function()
 {
 	Route::get('/home', 'HomeController@index');
+	
 	//user
 	Route::resource('user', 'UserController')->except(['show']);
-
 	Route::get('/user', 'UserController@index')->name('user.index');
 	Route::get('/user/cari', 'UserController@cari')->name('user.cari');
 	Route::post('/user', 'UserController@store')->name('user.store');
 	Route::get('/user/{user_id}/edit', 'UserController@edit')->name('user.edit');
 	Route::put('/user/{user_id}', 'UserController@update')->name('user.update');
 	Route::delete('/user/{user_id}', 'UserController@destroy')->name('user.destroy');
+
 	//category
 	Route::get('/category', 'CategoryController@index')->name('category.index');
 	Route::post('/category', 'CategoryController@store')->name('category.store');
@@ -43,4 +43,9 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route::get('/product/{product_id}/edit', 'ProductController@edit')->name('product.edit');
 	// Route::put('/product/{product_id}', 'ProductController@update')->name('product.update');
 	// Route::delete('/product/{product_id}', 'ProductController@destroy')->name('product.destroy');
+
+	//city
+	Route::resource('city', 'CityController')->except(['show']);
+
+	
 });		

@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="row justify-content-center">
@@ -98,7 +100,6 @@ unset($__errorArgs, $__bag); ?>
                             <div class="col-md-6">
                                 <select class="form-control" name="status">
                                     <option>--Pilih Hak Akses--</option>
-                                    <option value="2">Owner</option>
                                     <option value="1">Admin</option>
                                     <option value="0">User</option>
                                 </select>

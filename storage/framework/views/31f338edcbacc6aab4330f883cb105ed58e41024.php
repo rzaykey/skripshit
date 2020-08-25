@@ -48,6 +48,7 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
+                                            <th>Stock</th>
                                             <th>Created At</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -57,7 +58,7 @@
                                         <?php $__empty_1 = true; $__currentLoopData = $product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
                                             <td>
-                                                <img src="<?php echo e(asset('public/products' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
+                                                <img src="<?php echo e(asset('products/' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
                                             </td>
                                             <td>
                                                 <strong><?php echo e($row->name); ?></strong><br>
@@ -65,6 +66,7 @@
                                                 <label>Berat: <span class="badge badge-info"><?php echo e($row->weight); ?> gr</span></label>
                                             </td>
                                             <td>Rp <?php echo e(number_format($row->price)); ?></td>
+                                            <td><?php echo e($row->stock); ?></td>
                                             <td><?php echo e($row->created_at->format('d-m-Y')); ?></td>
                                             <td><?php echo $row->status_label; ?></td>
                                             <td>

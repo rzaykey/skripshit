@@ -8,7 +8,6 @@ use App\Product;
 use App\Category;
 use File;
 use App\Jobs\ProductJob;
-use App\Jobs\MarketplaceJob;
 
 class ProductController extends Controller
 {
@@ -34,8 +33,14 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
             'weight' => 'required|integer',
-            'image' => 'required|image|mimes:png,jpeg,jpg'
+            'stock' => 'required|integer',
+            'image' => 'required|image|mimes:png,jpeg,jpg',
+            'type_weight' => 'required'
         ]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
         if($request->hasFile('image')) {
             $to = 'products';
             $file = $request->file('image');
@@ -50,8 +55,14 @@ class ProductController extends Controller
                 'image' => $filename,
                 'price' => $request->price,
                 'weight' => $request->weight,
+<<<<<<< HEAD
                 'type_weight' => $request->type_weights,
                 'status' => $request->status
+=======
+                'status' => $request->status,
+                'stock' => $request->stock,
+                'weight_type' => $request->type_weight
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }
@@ -72,15 +83,17 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
             'weight' => 'required|integer',
+            'stock' => 'required|integer',
             'image' => 'nullable|image|mimes:png,jpeg,jpg'
         ]);
 
         $product = Product::find($id);
         $filename = $product->image;
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')) {
+            $to = 'products';
             $file = $request->file('image');
             $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/products', $filename);
+            $file->move($to, $filename);
             File::delete(storage_path('app/public/products/' . $product->image));
         }
 
@@ -90,6 +103,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'price' => $request->price,
             'weight' => $request->weight,
+            'stock' => $request->stock,
             'image' => $filename
         ]);
         return redirect(route('product.index'))->with(['success' => 'Data Produk Diperbaharui']);

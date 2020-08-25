@@ -48,7 +48,12 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
+<<<<<<< HEAD
                                             <th>Tanggal</th>
+=======
+                                            <th>Stock</th>
+                                            <th>Created At</th>
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -65,6 +70,7 @@
                                                 <label>Berat: <span class="badge badge-info">{{ $row->weight }} {{ $row->type_weight }}</span></label>
                                             </td>
                                             <td>Rp {{ number_format($row->price) }}</td>
+                                            <td>{{ $row->stock }}</td>
                                             <td>{{ $row->created_at->format('d-m-Y') }}</td>
                                             <td>{!! $row->status_label !!}</td>
                                             <td>

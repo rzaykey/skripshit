@@ -44,11 +44,11 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
                                             <th>Status</th>
-                                            <th>Photo</th>
                                             <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -56,11 +56,13 @@
                                     <tbody>
                                         <?php $__empty_1 = true; $__currentLoopData = $user; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                         <tr>
+                                        <td>
+                                            <img src="<?php echo e(asset('users/' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
+                                        </td>
                                             <td><strong><?php echo e($row->name); ?></strong></td>
                                             <td><?php echo e($row->email); ?><br></td>
                                             <td><?php echo e($row->address); ?><br></td>
                                             <td><?php echo $row->status_label; ?></td>
-                                            <td><?php echo e($row->image); ?><br></td>
                                             <td><?php echo e($row->created_at->format('d-m-Y')); ?></td>
                                             <td>
                                                 <form action="<?php echo e(route('user.destroy', $row->id)); ?>" method="post">

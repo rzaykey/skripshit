@@ -68,9 +68,14 @@
                                     <p class="text-danger"><?php echo e($errors->first('weight')); ?></p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input type="number" name="stock" class="form-control" value="<?php echo e($product->stock); ?>" required>
+                                    <p class="text-danger"><?php echo e($errors->first('stock')); ?></p>
+                                </div>
+                                <div class="form-group">
                                     <label for="image">Foto Produk</label>
                                     <br>
-                                    <img src="<?php echo e(asset('storage/products/' . $product->image)); ?>" width="100px" height="100px" alt="<?php echo e($product->name); ?>">
+                                    <img src="<?php echo e(asset('products/' . $product->image)); ?>" width="100px" height="100px" alt="<?php echo e($product->name); ?>">
                                     <hr>
                                     <input type="file" name="image" class="form-control">
                                     <p><strong>Biarkan kosong jika tidak ingin mengganti gambar</strong></p>
