@@ -67,8 +67,22 @@ class CartController extends Controller
                 $carts[$row]['qty'] = $request->qty[$key];
             }
         }
-        $cookie = cookie('rs-carts', json_encode($carts), 2880);
+        $cookie = cookie('dw-carts', json_encode($carts), 2880);
         return redirect()->back()->cookie($cookie);
     }
+
+    public function checkout()
+    {
+        $provinces = Province::orderBy('created_at', 'DESC')->get();
+        $carts = $this->getCarts();
+        $subtotal = collect($carts)->sum(function($q) {
+            return $q['qty'] * $q['product_price'];
+        });
+        $weight = collect($carts)->sum(function($q) {
+            return $q['qty'] * $q['weight'];
+        });
+        return view('ecommerce.checkout', compact('provinces', 'carts', 'subtotal', 'weight'));
+    }
+
 
 }

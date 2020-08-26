@@ -9,6 +9,7 @@ Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
 Route::post('cart', 'CartController@addToCart')->name('front.cart');
 Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
 Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
+Route::get('/checkout', 'CartController@checkout')->name('front.checkout');
 
 
 //admin
