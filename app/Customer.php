@@ -15,7 +15,7 @@ class Customer extends Model
         $this->attributes['password'] = bcrypt($value);
     }
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'district_id', 'status', 'image',
+        'name', 'email', 'password', 'address', 'district_id', 'status',
     ];
     protected $hidden = [
         'password', 'remember_token',

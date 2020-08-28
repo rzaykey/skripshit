@@ -42,7 +42,8 @@ class CartController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $product->name,
                 'product_price' => $product->price,
-                'product_image' => $product->image
+                'product_image' => $product->image,
+                'weight' => $product->weight
             ];
         }
         $cookie = cookie('rs-carts', json_encode($carts), 2880);
@@ -67,7 +68,7 @@ class CartController extends Controller
                 $carts[$row]['qty'] = $request->qty[$key];
             }
         }
-        $cookie = cookie('dw-carts', json_encode($carts), 2880);
+        $cookie = cookie('rs-carts', json_encode($carts), 2880);
         return redirect()->back()->cookie($cookie);
     }
 
@@ -84,5 +85,88 @@ class CartController extends Controller
         return view('ecommerce.checkout', compact('provinces', 'carts', 'subtotal', 'weight'));
     }
 
+    public function getCity(Request $request)
+    {
+        $cities = City::where('province_id', request()->province_id)->get();
+        return response()->json(['status' => 'success', 'data' => $cities]);
+    }
+
+        public function getDistrict(Request $request)
+    {
+        $districts = District::where('city_id', request()->city_id)->get();
+        return response()->json(['status' => 'success', 'data' => $districts]);
+    }
+
+    public function processCheckout(Request $request)
+    {
+        $this->validate($request, [
+            'customer_name' => 'required|string|max:100',
+            'customer_phone' => 'required',
+            'email' => 'required|email',
+            'customer_address' => 'required|string',
+            'province_id' => 'required|exists:provinces,id',
+            'city_id' => 'required|exists:cities,id',
+            'district_id' => 'required|exists:districts,id'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $customer = Customer::where('email', $request->email)->first();
+                if (!auth()->check() && $customer) {
+                return redirect()->back()->with(['error' => 'Silahkan Login Terlebih Dahulu']);
+            }
+            $carts = $this->getCarts();
+            $subtotal = collect($carts)->sum(function($q) {
+                return $q['qty'] * $q['product_price'];
+            });
+            if (!auth()->guard('customer')->check()) {
+                $password = Str::random(8);
+                $customer = Customer::create([
+                    'name' => $request->customer_name,
+                    'email' => $request->email,
+                    'password' => $password,
+                    'phone_number' => $request->customer_phone,
+                    'address' => $request->customer_address,
+                    'district_id' => $request->district_id,
+                    'activate_token' => Str::random(30),
+                    'status' => false
+                ]);
+            }
+            $order = Order::create([
+                'invoice' => Str::random(4) . '-' . time(),
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'customer_phone' => $request->customer_phone,
+                'customer_address' => $request->customer_address,
+                'district_id' => $request->district_id,
+                'subtotal' => $subtotal
+            ]);
+            foreach ($carts as $row) {
+                $product = Product::find($row['product_id']);
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $row['product_id'],
+                    'price' => $row['product_price'],
+                    'qty' => $row['qty'],
+                    'weight' => $product->weight
+                ]);
+            }
+            DB::commit();
+
+            $carts = [];
+            $cookie = cookie('rs-carts', json_encode($carts), 2880);
+            Mail::to($request->email)->send(new CustomerRegisterMail($customer, $password));
+            return redirect(route('front.finish_checkout', $order->invoice))->cookie($cookie);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function checkoutFinish($invoice)
+    {
+        $order = Order::with(['district.city'])->where('invoice', $invoice)->first();
+        return view('ecommerce.checkout_finish', compact('order'));
+    }
 
 }

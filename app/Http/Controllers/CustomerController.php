@@ -41,27 +41,17 @@ class CustomerController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'district_id' => 'nullable|exists:districts,id',
-            'password' => 'required|string|min:5|confirmed',            
-            'image' => 'nullable|image|mimes:png,jpeg,jpg'
+            'password' => 'required|string|min:5|confirmed'
         ]);
-        
-        if($request->hasFile('image')) {
-            $to = 'customers';
-            $file = $request->file('image');
-            $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->move($to, $filename);
-
-            $customer = Customer::create([
+                $customer = Customer::create([
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'address' => $request['address'],
                 'district_id' => $request['district_id'],
-                'status' => $request['status'],
-                'image' => $filename,
+                'status' => $request['status']
             ]);
             return redirect(route('customer.index'))->with(['success' => 'Pelanggan Baru Ditambahkan']);
-        }
         
     }
     public function edit($id)
@@ -75,24 +65,15 @@ class CustomerController extends Controller
     {
     	$this->validate($request, [    		
             'name' => 'required|string|max:100',
-            'image' => 'nullable|image|mimes:png,jpeg,jpg'
         ]);
         
         $customer = Customer::find($id);
-        $filename = $customer->image;
-        if($request->hasFile('image')) {
-            $to = 'customers';
-            $file = $request->file('image');
-            $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
-            $file->move($to, $filename);
-            File::delete(storage_path('app/public/customers/' . $customer->image));
-        }
+    
     	$customer->update([
             'name' => $request->name,
             'email' => $request->email,
             'address' => $request->address,
-            'district_id' => $request->district_id,
-            'image' => $filename
+            'district_id' => $request->district_id
     	]);
     	return redirect(route('customer.index'))->with(['success' => 'Customer Diperbaharui!']);
     }

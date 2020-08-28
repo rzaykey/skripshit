@@ -30,10 +30,14 @@
 				</div>
 				<div class="float-right">
 					<ul class="right_side">
-						<li><a href="login.html">Login/Register</a></li>
+						<?php if(auth()->guard('customer')->check()): ?>
+						  <li><a href="<?php echo e(route('customer.logout')); ?>">Logout</a></li>
+						<?php else: ?>
+						  <li><a href="<?php echo e(route('customer.login')); ?>">Login</a></li>
+						<?php endif; ?>
 						<li><a href="#">My Account</a></li>
 						<li><a href="contact.html">Contact Us</a></li>
-					</ul>
+					  </ul>
 				</div>
 			</div>
 		</div>
@@ -233,5 +237,7 @@
 	<script src="<?php echo e(asset('ecommerce/vendors/counter-up/jquery.counterup.js')); ?>"></script>
 	<script src="<?php echo e(asset('ecommerce/js/mail-script.js')); ?>"></script>
 	<script src="<?php echo e(asset('ecommerce/js/theme.js')); ?>"></script>
+
+	<?php echo $__env->yieldContent('js'); ?>
 </body>
 </html><?php /**PATH C:\xampp\htdocs\Tes\resources\views/layouts/ecommerce.blade.php ENDPATH**/ ?>

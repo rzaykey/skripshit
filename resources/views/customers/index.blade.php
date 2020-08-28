@@ -44,7 +44,6 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Photo</th>
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
@@ -57,9 +56,6 @@
                                     <tbody>
                                         @forelse ($customer as $row)
                                         <tr>
-                                        <td>
-                                            <img src="{{ asset('customers/' . $row->image) }}" width="100px" height="100px" alt="{{ $row->name }}">
-                                        </td>
                                             <td><strong>{{ $row->name }}</strong></td>
                                             <td>{{ $row->email }}<br></td>
                                             <td>{{ $row->address }}<br></td>
