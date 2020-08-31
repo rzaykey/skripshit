@@ -71,6 +71,9 @@
                             <div class="card_area">
 							<button class="main_btn" >Add to Cart</button>
 						</div>
+						@if (session('success'))
+<div class="alert alert-success mt-2">{{ session('success') }}</div>
+@endif
 					</div>
 				</div>
 			</div>

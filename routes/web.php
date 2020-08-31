@@ -5,6 +5,8 @@ Route::get('/produk', 'FrontController@product')->name('front.produk');
 Route::get('/category/{slug}', 'FrontController@categoryProduct')->name('front.category');
 Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
 
+Route::post('cost', 'CartController@getCourier');
+
 //cart
 Route::post('cart', 'CartController@addToCart')->name('front.cart');
 Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
