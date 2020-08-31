@@ -45,6 +45,10 @@ return [
             'provider' => 'customers',
         ],
 
+        'customer-api' => [
+            'driver' => 'token',
+            'provider' => 'customers',
+        ],
 
         'api' => [
             'driver' => 'token',

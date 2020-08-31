@@ -8,6 +8,6 @@
 <body>
     <h2>Hai, {{ $customer->name }}</h2>
     <p>Terima kasih telah melakukan transaksi pada aplikasi kami, berikut password anda: <strong>{{ $password }}</strong></p>
-    <p>Jangan lupa untuk melakukan verifikasi pendaftaran <a href="{{ route('customer.verify', $customer->activate_token) }}">DISINI</a></p>
+    <p>Jangan lupa untuk melakukan verifikasi pendaftaran <a href="{{ route('customer.verify') }}">DISINI</a></p>
 </body>
 </html>

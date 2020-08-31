@@ -15,7 +15,6 @@ Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.
 
 Route::group(['prefix' => 'member'], function() {
 		Route::get('login', 'LoginController@loginForm')->name('customer.login');
-		Route::get('verify/{token}', 'FrontController@verifyCustomerRegistration')->name('customer.verify');
 		Route::post('login', 'LoginController@login')->name('customer.post_login');
 	});
 
