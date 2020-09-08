@@ -20,13 +20,11 @@ class ProductController extends Controller
         $product = $product->paginate(10);
         return view('products.index', compact('product'));
     }
-
     public function create()
     {
         $category = Category::orderBy('name', 'DESC')->get();
         return view('products.create', compact('category'));
     }
-
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -39,7 +37,10 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:png,jpeg,jpg',
             'type_weight' => 'required'
         ]);
+<<<<<<< HEAD
+=======
 
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
         if($request->hasFile('image')) {
             $to = 'products';
             $file = $request->file('image');
@@ -54,9 +55,14 @@ class ProductController extends Controller
                 'image' => $filename,
                 'price' => $request->price,
                 'weight' => $request->weight,
+<<<<<<< HEAD
+                'type_weight' => $request->type_weights,
+                'status' => $request->status
+=======
                 'status' => $request->status,
                 'stock' => $request->stock,
                 'weight_type' => $request->type_weight
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }
