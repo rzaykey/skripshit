@@ -40,7 +40,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:5', 'confirmed'],            
-            'image' => 'nullable|image|mimes:png,jpeg,jpg'
+            'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
         
         if($request->hasFile('image')) {
@@ -55,7 +55,7 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
             'address' => $request['address'],
             'status' => $request['status'],
-            'image' => $filename,
+            'image' => $filename
             ]);
             return redirect(route('user.index'))->with(['success' => 'User Baru Ditambahkan']);
         }
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
     	$this->validate($request, [    		
             'name' => 'required|string|max:100',
-            'image' => 'nullable|image|mimes:png,jpeg,jpg'
+            'image' => 'required|image|mimes:png,jpeg,jpg'
         ]);
         
         $user = User::find($id);

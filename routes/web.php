@@ -5,11 +5,25 @@ Route::get('/produk', 'FrontController@product')->name('front.produk');
 Route::get('/category/{slug}', 'FrontController@categoryProduct')->name('front.category');
 Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
 
+Route::post('cost', 'CartController@getCourier');
+
 //cart
 Route::post('cart', 'CartController@addToCart')->name('front.cart');
 Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
 Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
+Route::get('/checkout', 'CartController@checkout')->name('front.checkout');
+Route::post('/checkout', 'CartController@processCheckout')->name('front.store_checkout');
+Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.finish_checkout');
 
+Route::group(['prefix' => 'member'], function() {
+		Route::get('login', 'LoginController@loginForm')->name('customer.login');
+		Route::post('login', 'LoginController@login')->name('customer.post_login');
+	});
+
+Route::group(['middleware' => 'customer'], function() {
+		Route::get('dashboard', 'LoginController@dashboard')->name('customer.dashboard');
+		Route::get('logout', 'LoginController@logout')->name('customer.logout');
+	});
 
 //admin
 Route::get('/admin', function () {

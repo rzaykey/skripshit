@@ -99,18 +99,23 @@ unset($__errorArgs, $__bag); ?>
                         </div>
 
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Image')); ?></label>
-
+                            <label class="col-md-4 col-form-label text-md-right" for="">Last image</label>
                             <div class="col-md-6">
-                                <input id="image" type="text" class="form-control <?php $__errorArgs = ['image'];
+                                <img src="users/<?php echo e($user->image); ?>" class="form-control" alt="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Update image')); ?></label>
+                            <div class="col-md-6">
+                                <input id="image" type="file" class="form-control <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" name="image" value="<?php echo e(old('image', $user->image)); ?>" autocomplete="image" autofocus>
-
+unset($__errorArgs, $__bag); ?>" name="image" autocomplete="image" autofocus>
                                 <?php $__errorArgs = ['image'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

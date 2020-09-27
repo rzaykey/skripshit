@@ -17,6 +17,7 @@ use App\Mail\CustomerRegisterMail;
 use Mail;
 use Cookie;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Hash;
 
 class CartController extends Controller
 {
@@ -42,7 +43,8 @@ class CartController extends Controller
                 'product_id' => $product->id,
                 'product_name' => $product->name,
                 'product_price' => $product->price,
-                'product_image' => $product->image
+                'product_image' => $product->image,
+                'weight' => $product->weight
             ];
         }
         $cookie = cookie('rs-carts', json_encode($carts), 2880);
@@ -70,5 +72,129 @@ class CartController extends Controller
         $cookie = cookie('rs-carts', json_encode($carts), 2880);
         return redirect()->back()->cookie($cookie);
     }
+
+    public function checkout()
+    {
+        $provinces = Province::orderBy('created_at', 'DESC')->get();
+        $carts = $this->getCarts();
+        $subtotal = collect($carts)->sum(function($q) {
+            return $q['qty'] * $q['product_price'];
+        });
+        $weight = collect($carts)->sum(function($q) {
+            return $q['qty'] * $q['weight'];
+        });
+        return view('ecommerce.checkout', compact('provinces', 'carts', 'subtotal', 'weight'));
+    }
+
+    public function getCity(Request $request)
+    {
+        $cities = City::where('province_id', request()->province_id)->get();
+        return response()->json(['status' => 'success', 'data' => $cities]);
+    }
+
+        public function getDistrict(Request $request)
+    {
+        $districts = District::where('city_id', request()->city_id)->get();
+        return response()->json(['status' => 'success', 'data' => $districts]);
+    }
+
+    public function processCheckout(Request $request)
+    {
+        $this->validate($request, [
+            'customer_name' => 'required|string|max:100',
+            'customer_phone' => 'required',
+            'email' => 'required|email',
+            'customer_address' => 'required|string',
+            'province_id' => 'required|exists:provinces,id',
+            'city_id' => 'required|exists:cities,id',
+            'district_id' => 'required|exists:districts,id',
+            'courier' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $customer = Customer::where('email', $request->email)->first();
+            if (!auth()->check() && $customer) {
+                return redirect()->back()->with(['error' => 'Silahkan Login Terlebih Dahulu']);
+            }
+            $carts = $this->getCarts();
+            $subtotal = collect($carts)->sum(function($q) {
+                return $q['qty'] * $q['product_price'];
+            });
+                $password = 123123;
+                $customer = Customer::create([
+                    'name' => $request->customer_name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request['password']),
+                    'phone_number' => $request->customer_phone,
+                    'address' => $request->customer_address,
+                    'district_id' => $request->district_id,
+                    'status' => false
+                ]);
+
+            $shipping = explode('-', $request->courier);
+            $order = Order::create([
+                'invoice' => Str::random(4) . '-' . time(),
+                'customer_id' => $customer->id,
+                'customer_name' => $customer->name,
+                'customer_phone' => $request->customer_phone,
+                'customer_address' => $request->customer_address,
+                'district_id' => $request->district_id,
+                'subtotal' => $subtotal,
+                'cost' => $shipping[2],
+                'shipping' => $shipping[0] . '-' . $shipping[1]
+            ]);
+            foreach ($carts as $row) {
+                $product = Product::find($row['product_id']);
+                OrderDetail::create([
+                    'order_id' => $order->id,
+                    'product_id' => $row['product_id'],
+                    'price' => $row['product_price'],
+                    'qty' => $row['qty'],
+                    'weight' => $product->weight
+                ]);
+            }
+            DB::commit();
+
+            $carts = [];
+            $cookie = cookie('rs-carts', json_encode($carts), 2880);
+
+            return redirect(route('front.finish_checkout', $order->invoice))->cookie($cookie);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function checkoutFinish($invoice)
+    {
+        $order = Order::with(['district.city'])->where('invoice', $invoice)->first();
+        return view('ecommerce.checkout_finish', compact('order'));
+    }
+
+    public function getCourier(Request $request)
+{
+    $this->validate($request, [
+        'destination' => 'required',
+        'weight' => 'required|integer'
+    ]);
+
+    $url = 'https://ruangapi.com/api/v1/shipping';
+    $client = new Client();
+    $response = $client->request('POST', $url, [
+        'headers' => [
+            'Authorization' => 'WJv1VICRrjztaGW6suuVPehwWHemO3v6MalgtEka'
+        ],
+        'form_params' => [
+            'origin' => 22,
+            'destination' => $request->destination,
+            'weight' => $request->weight,
+            'courier' => 'jnt,sicepat'
+        ]
+    ]);
+
+    $body = json_decode($response->getBody(), true);
+    return $body;
+}
 
 }
