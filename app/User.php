@@ -30,5 +30,9 @@ class User extends Authenticatable
         }
         return '<span class="badge badge-success">Admin</span>';
     }
+    public static function deletes($id)
+    {
+        return User::where('id', $id)->delete();
+    }
 
 }

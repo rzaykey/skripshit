@@ -48,8 +48,12 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
+<<<<<<< HEAD
+                                            <th>Tanggal</th>
+=======
                                             <th>Stock</th>
                                             <th>Created At</th>
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -63,7 +67,7 @@
                                             <td>
                                                 <strong>{{ $row->name }}</strong><br>
                                                 <label>Kategori: <span class="badge badge-info">{{ $row->category->name }}</span></label><br>
-                                                <label>Berat: <span class="badge badge-info">{{ $row->weight }} gr</span></label>
+                                                <label>Berat: <span class="badge badge-info">{{ $row->weight }} {{ $row->type_weight }}</span></label>
                                             </td>
                                             <td>Rp {{ number_format($row->price) }}</td>
                                             <td>{{ $row->stock }}</td>

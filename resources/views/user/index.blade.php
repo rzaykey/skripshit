@@ -48,7 +48,12 @@
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
+<<<<<<< HEAD
+                                            <th>Level</th>
+                                            <th>Photo</th>
+=======
                                             <th>Status</th>
+>>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
                                             <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>
