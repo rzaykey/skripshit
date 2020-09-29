@@ -93,27 +93,10 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
-<<<<<<< HEAD
-        if($id == '' || $id == null) {
-            return redirect()->back()->with(['error' => 'Something went wrong ']);
-        }
-        $delete = User::deletes($id);
-        if($delete)
-        {
-            echo "<script>alert('Dihapus') </script>";
-            echo "<script>window.location.href='/user'</script>";
-        }
-    }
-    public function edit($id)
-    {
-        return view('user.update');
-    }
-=======
         $user = User::find($id);
         $user->delete();
         return redirect(route('user.index'))->with(['success' => 'User Sudah Dihapus']);
     }
 
     
->>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
 }

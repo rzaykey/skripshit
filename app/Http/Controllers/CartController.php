@@ -173,28 +173,37 @@ class CartController extends Controller
     }
 
     public function getCourier(Request $request)
-{
+    {
     $this->validate($request, [
         'destination' => 'required',
         'weight' => 'required|integer'
     ]);
 
-    $url = 'https://ruangapi.com/api/v1/shipping';
-    $client = new Client();
-    $response = $client->request('POST', $url, [
-        'headers' => [
-            'Authorization' => 'WJv1VICRrjztaGW6suuVPehwWHemO3v6MalgtEka'
-        ],
-        'form_params' => [
-            'origin' => 22,
-            'destination' => $request->destination,
-            'weight' => $request->weight,
-            'courier' => 'jnt,sicepat'
-        ]
-    ]);
+        $curl = curl_init();
 
-    $body = json_decode($response->getBody(), true);
-    return $body;
-}
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => "origin=2&destination=$request->destination&weight=$request->weight&courier=jne",
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: eace08e6c4b1bc3a064805ce330c0ebf"
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        return json_decode($response, true);
+
+   
+    }
 
 }

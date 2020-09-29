@@ -181,22 +181,34 @@
             });
         })
 
-                $('#district_id').on('change', function() {
+            $('#district_id').on('change', function() {
             $('#courier').empty()
             $('#courier').append('<option value="">Loading...</option>')
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
-                url: "{{ url('/api/cost') }}",
+                url: "{{ route('cost') }}",
                 type: "POST",
-                data: { destination: $(this).val(), weight: $('#weight').val() },
+                data: { 
+                    _token: "{{ csrf_token() }}",
+                    destination: $('#city_id').val(), 
+                    weight: $('#weight').val() 
+                    },
                 success: function(html){
-                    $('#courier').empty()
-                    $('#courier').append('<option value="">Pilih Kurir</option>')
-                
-                    $.each(html.data.results, function(key, item) {
-                        let courier = item.courier + ' - ' + item.service + ' (Rp '+ item.cost +')'
-                        let value = item.courier + '-' + item.service + '-'+ item.cost
-                        $('#courier').append('<option value="'+value+'">' + courier + '</option>')
+                    $.each(html.rajaongkir.results, (key, value) => {
+                        $.each(value.costs, (key2, valu2) => {
+                            $.each(valu2.cost, (key3, value3) => {
+                            let courier = value.code + ' - ' + valu2.service + ' (Rp ' + value3.value + ' ) '
+                            $('#courier').append('<option value='+ courier +'>' + courier + '</option>')
+                            })
+                        })
                     })
+                },
+                beforeSend: function(){
+                    $('#courier').empty()
                 }
             });
         })
