@@ -52,6 +52,7 @@
 							</div>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="btn submit_btn">Log In</button>
+								<a class="btn btn-warning" href="{{route('customer.register')}}">Register</a>
 								<a href="#">Forgot Password?</a>
 							</div>
 						</form>

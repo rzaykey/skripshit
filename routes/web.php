@@ -18,6 +18,9 @@ Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.
 Route::group(['prefix' => 'member'], function() {
 		Route::get('login', 'LoginController@loginForm')->name('customer.login');
 		Route::post('login', 'LoginController@login')->name('customer.post_login');
+		Route::get('register','LoginController@register')->name('customer.register');
+		Route::post('register','LoginController@post_register')->name('customer.post_register');
+
 	});
 
 Route::group(['middleware' => 'customer'], function() {

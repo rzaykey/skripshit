@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Order;
+use App\City;
+use App\Customer;
 
 class LoginController extends Controller
 {
@@ -23,8 +25,9 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
 
-        $auth = $request->only('email', 'password');
+    $auth = $request->only('email', 'password');
     $auth['status'] = 0; 
+
     if (auth()->guard('customer')->attempt($auth)) {
         return redirect()->intended(route('customer.dashboard'));
     }
@@ -39,5 +42,20 @@ class LoginController extends Controller
     {
         auth()->guard('customer')->logout();
         return redirect(route('customer.login'));
+    }
+    public function register()
+    {
+        return view('ecommerce.register', ['city' => City::all()]);
+    }
+    public function post_register(Request $req)
+    {
+        $register = Customer::register($req->nama, $req->email, $req->password, $req->alamat, $req->city);
+        if($register === true)
+        {
+            $req->session()->put(['login', $req->email]);
+            return redirect('/customer/dashboard');
+        }else{
+            return back()->with(['error' => 'Something went wrong !']);
+        }
     }
 }
