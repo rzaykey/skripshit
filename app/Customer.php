@@ -7,9 +7,9 @@ use Illuminate\Notifications\Notifiable;
 
 class Customer extends Model
 {
+
     use Notifiable;
     protected $guarded = [];
-
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
@@ -35,5 +35,22 @@ class Customer extends Model
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+    public static function register($name, $email, $password, $address, $city_id)
+    {
+        $save = new Customer;
+        $savea = $save->insert([
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'address' => $address,
+            'city_id' => $city_id
+        ]);
+        if($savea)
+        {
+            return true;
+        }else{
+            return false;
+        }
     }
 }
