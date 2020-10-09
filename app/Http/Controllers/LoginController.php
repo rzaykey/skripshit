@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\City;
 use App\Customer;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -27,6 +28,7 @@ class LoginController extends Controller
 
     $auth = $request->only('email', 'password');
     $auth['status'] = 0; 
+
 
     if (auth()->guard('customer')->attempt($auth)) {
         return redirect()->intended(route('customer.dashboard'));
@@ -49,11 +51,10 @@ class LoginController extends Controller
     }
     public function post_register(Request $req)
     {
-        $register = Customer::register($req->nama, $req->email, $req->password, $req->alamat, $req->city);
+        $register = Customer::register($req->nama, $req->email, bcrypt($req->password), $req->alamat, $req->city);
         if($register === true)
         {
-            $req->session()->put(['login', $req->email]);
-            return redirect('/customer/dashboard');
+            return redirect()->route('customer.login')->with(['success' => 'Successfull register, please login !']);
         }else{
             return back()->with(['error' => 'Something went wrong !']);
         }

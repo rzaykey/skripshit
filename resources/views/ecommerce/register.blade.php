@@ -65,7 +65,7 @@
 								</div>
 							</div>
 							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="btn submit_btn">Log In</button>
+								<button type="submit" value="submit" class="btn submit_btn">Register</button>
 								<a href="{{ route('customer.login') }}">Already registered ?</a>
 							</div>
 						</form>

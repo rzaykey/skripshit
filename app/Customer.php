@@ -4,8 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class Customer extends Model
+class Customer extends Model implements Authenticatable
 {
 
     use Notifiable;
@@ -52,5 +53,29 @@ class Customer extends Model
         }else{
             return false;
         }
+    }
+    public function getAuthIdentifierName()
+    {
+
+    }
+    public function getAuthIdentifier()
+    {
+
+    }
+    public function getAuthPassword()
+    {
+
+    }
+    public function getRememberToken()
+    {
+
+    }
+    public function setRememberToken($value)
+    {
+
+    }
+    public function getRememberTokenName()
+    {
+        
     }
 }
