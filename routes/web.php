@@ -24,7 +24,7 @@ Route::group(['prefix' => 'member'], function() {
 	});
 
 Route::group(['middleware' => 'customer'], function() {
-		Route::get('dashboard', 'LoginController@dashboard')->name('customer.dashboard');
+		Route::post('dashboard', 'LoginController@dashboard')->name('customer.dashboard');
 		Route::get('logout', 'LoginController@logout')->name('customer.logout');
 	});
 
