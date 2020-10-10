@@ -41,6 +41,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/user/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
@@ -48,7 +49,7 @@
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
-                                            <th>Status</th>
+                                            <th>Level</th>
                                             <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>

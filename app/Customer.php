@@ -16,7 +16,7 @@ class Customer extends Model implements Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'district_id', 'status',
+        'name', 'email', 'password', 'address', 'city_id', 'status',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -33,9 +33,9 @@ class Customer extends Model implements Authenticatable
         }
         return '<span class="badge badge-success">Admin</span>';
     }
-    public function district()
+    public function city()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(City::class);
     }
     public static function register($name, $email, $password, $address, $city_id)
     {

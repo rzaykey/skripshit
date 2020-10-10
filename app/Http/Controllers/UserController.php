@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Socialite;
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -97,6 +99,11 @@ class UserController extends Controller
         $user->delete();
         return redirect(route('user.index'))->with(['success' => 'User Sudah Dihapus']);
     }
+
+    public function export_excel()
+{
+    return (new UserExport)->download('Admin.xlsx');
+}
 
     
 }

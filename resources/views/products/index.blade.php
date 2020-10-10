@@ -42,18 +42,15 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/product/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
-<<<<<<< HEAD
-                                            <th>Tanggal</th>
-=======
                                             <th>Stock</th>
                                             <th>Created At</th>
->>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>

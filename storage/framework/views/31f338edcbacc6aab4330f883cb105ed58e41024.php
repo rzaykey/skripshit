@@ -42,6 +42,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/product/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
@@ -63,7 +64,7 @@
                                             <td>
                                                 <strong><?php echo e($row->name); ?></strong><br>
                                                 <label>Kategori: <span class="badge badge-info"><?php echo e($row->category->name); ?></span></label><br>
-                                                <label>Berat: <span class="badge badge-info"><?php echo e($row->weight); ?> gr</span></label>
+                                                <label>Berat: <span class="badge badge-info"><?php echo e($row->weight); ?> <?php echo e($row->type_weight); ?></span></label>
                                             </td>
                                             <td>Rp <?php echo e(number_format($row->price)); ?></td>
                                             <td><?php echo e($row->stock); ?></td>
