@@ -1,19 +1,6 @@
 <?php
-//front
-Route::get('/', 'FrontController@index')->name('front.index');
-Route::get('/produk', 'FrontController@product')->name('front.produk');
-Route::get('/category/{slug}', 'FrontController@categoryProduct')->name('front.category');
-Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
 
 Route::post('/api/cost', 'CartController@getCourier')->name('cost');
-
-//cart
-Route::post('cart', 'CartController@addToCart')->name('front.cart');
-Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
-Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
-Route::get('/checkout', 'CartController@checkout')->name('front.checkout');
-Route::post('/checkout', 'CartController@processCheckout')->name('front.store_checkout');
-Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.finish_checkout');
 
 Route::group(['prefix' => 'member'], function() {
 		Route::get('login', 'LoginController@loginForm')->name('customer.login');
@@ -24,8 +11,23 @@ Route::group(['prefix' => 'member'], function() {
 	});
 
 Route::group(['middleware' => 'customer'], function() {
-		Route::post('dashboard', 'LoginController@dashboard')->name('customer.dashboard');
+		Route::get('dashboard', 'CustomerLoginController@index')->name('customer.dashboard');
 		Route::get('logout', 'LoginController@logout')->name('customer.logout');
+
+		//front
+		Route::get('/', 'FrontController@index')->name('front.index');
+		Route::get('/produk', 'FrontController@product')->name('front.produk');
+		Route::get('/category/{slug}', 'FrontController@categoryProduct')->name('front.category');
+		Route::get('/produk/{slug}', 'FrontController@show')->name('front.show_produk');
+
+
+		//cart
+		Route::post('cart', 'CartController@addToCart')->name('front.cart');
+		Route::get('/cart', 'CartController@listCart')->name('front.list_cart');
+		Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
+		Route::get('/checkout', 'CartController@checkout')->name('front.checkout');
+		Route::post('/checkout', 'CartController@processCheckout')->name('front.store_checkout');
+		Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.finish_checkout');
 	});
 
 //admin

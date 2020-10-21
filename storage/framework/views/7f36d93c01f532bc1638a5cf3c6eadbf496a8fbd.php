@@ -3,7 +3,6 @@
 <?php $__env->startSection('title'); ?>
     <title>Checkout - Rupaka Store</title>
 <?php $__env->stopSection(); ?>
-
 <?php $__env->startSection('content'); ?>
     <!--================Home Banner Area =================-->
 	<section class="banner_area">
@@ -30,32 +29,30 @@
 					<div class="col-lg-8">
             <h3>Informasi Pengiriman</h3>          
               <?php if(session('error')): ?>
-              error
-
+                  <div class="alert alert-danger"><?php echo e(session('error')); ?></div>
               <?php endif; ?>
                         
               <form class="row contact_form" action="<?php echo e(route('front.store_checkout')); ?>" method="post" novalidate="novalidate">
                             <?php echo csrf_field(); ?>
                         <div class="col-md-12 form-group p_star">
                             <label for="">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="first" name="customer_name" required>
+                            <input type="text" class="form-control" value="<?php echo e(Auth::user()->name); ?>" id="first" name="customer_name" required>
 
                             <p class="text-danger"><?php echo e($errors->first('customer_name')); ?></p>
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <label for="">No Telp</label>
-                            <input type="text" class="form-control" id="number" name="customer_phone" required>
+                            <input type="text" class="form-control" id="number" value="08943267423" name="customer_phone" required>
                             <p class="text-danger"><?php echo e($errors->first('customer_phone')); ?></p>
                         </div>
-                        <div class="col-md-6 form-group p_star">
+                        <div hidden class="col-md-6 form-group p_star">
                             <label for="">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" value="<?php echo e(Auth::user()->email); ?>" required>
                             <p class="text-danger"><?php echo e($errors->first('email')); ?></p>
                         </div>
-                        
                         <div class="col-md-12 form-group p_star">
                             <label for="">Alamat Lengkap</label>
-                            <input type="text" class="form-control" id="add1" name="customer_address" required>
+                            <input type="text" class="form-control" id="add1" name="customer_address" value="<?php echo e(Auth::user()->address); ?>" required>
                             <p class="text-danger"><?php echo e($errors->first('customer_address')); ?></p>
                         </div>
                         <div class="col-md-12 form-group p_star">

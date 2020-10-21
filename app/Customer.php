@@ -4,17 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Foundation\Auth\User as Auther;
 
-class Customer extends Model implements Authenticatable
+class Customer extends Auther
 {
 
     use Notifiable;
-    protected $guarded = [];
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = bcrypt($value);
-    }
+    protected $guard = 'customer';
     protected $fillable = [
         'name', 'email', 'password', 'address', 'district_id', 'status',
     ];
@@ -53,29 +49,5 @@ class Customer extends Model implements Authenticatable
         }else{
             return false;
         }
-    }
-    public function getAuthIdentifierName()
-    {
-
-    }
-    public function getAuthIdentifier()
-    {
-
-    }
-    public function getAuthPassword()
-    {
-
-    }
-    public function getRememberToken()
-    {
-
-    }
-    public function setRememberToken($value)
-    {
-
-    }
-    public function getRememberTokenName()
-    {
-        
     }
 }

@@ -10,9 +10,12 @@ use App\Order;
 use App\City;
 use App\Customer;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+
     public function loginForm()
     {
         if (auth()->guard('customer')->check()) return redirect(route('customer.dashboard'));
@@ -30,15 +33,11 @@ class LoginController extends Controller
     $auth['status'] = 0; 
 
 
+
     if (auth()->guard('customer')->attempt($auth)) {
-        return redirect()->intended(route('customer.dashboard'));
+        return redirect(route('customer.dashboard'));
     }
     return redirect()->back()->with(['error' => 'Email / Password Salah']);
-    }
-
-    public function dashboard()
-    {
-        return view('ecommerce.dashboard');
     }
     public function logout()
     {

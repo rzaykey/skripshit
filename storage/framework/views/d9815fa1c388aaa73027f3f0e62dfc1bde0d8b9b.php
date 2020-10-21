@@ -100,7 +100,7 @@
     <?php echo $__env->yieldContent('content'); ?>
     
     <!--================ Subscription Area ================-->
-	<section class="subscription-area section_gap">
+	<!-- <section class="subscription-area section_gap">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -117,9 +117,6 @@
                             method="get" class="subscription relative">
                             <input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'"
                                 required="">
-                            <!-- <div style="position: absolute; left: -5000px;">
-                                <input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
-                            </div> -->
                             <button type="submit" class="newsl-btn">Get Started</button>
                             <div class="info"></div>
                         </form>
@@ -127,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!--================ End Subscription Area ================-->
 
 	<!--================ start footer Area  =================-->
@@ -140,7 +137,7 @@
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 col-sm-6">
+				<!-- <div class="col-lg-4 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
 						<h6 class="footer_title">Newsletter</h6>
 						<p>Stay updated with our latest trends</p>
@@ -158,7 +155,7 @@
 							</form>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="single-footer-widget instafeed">
 						<h6 class="footer_title">Instagram Feed</h6>

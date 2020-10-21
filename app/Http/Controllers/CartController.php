@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Hash;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:customer');
+    }
     private function getCarts()
     {
         $carts = json_decode(request()->cookie('rs-carts'), true);
