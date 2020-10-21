@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 Route::post('/api/cost', 'CartController@getCourier')->name('cost');
 
