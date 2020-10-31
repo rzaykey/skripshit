@@ -48,12 +48,8 @@
                                             <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
-<<<<<<< HEAD
-                                            <th>Tanggal</th>
-=======
                                             <th>Stock</th>
                                             <th>Created At</th>
->>>>>>> f7e58606a351aca8f0478ba57d32999b7e3809f3
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>

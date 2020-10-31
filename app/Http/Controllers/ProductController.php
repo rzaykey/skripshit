@@ -35,7 +35,7 @@ class ProductController extends Controller
             'weight' => 'required|integer',
             'stock' => 'required|integer',
             'image' => 'required|image|mimes:png,jpeg,jpg',
-            'type_weight' => 'required'
+            'type_weights' => 'required'
         ]);
         
         if($request->hasFile('image')) {
@@ -49,6 +49,7 @@ class ProductController extends Controller
                 'slug' => $request->name,
                 'category_id' => $request->category_id,
                 'description' => $request->description,
+                'stock' => $request->stock,
                 'image' => $filename,
                 'price' => $request->price,
                 'weight' => $request->weight,
@@ -57,6 +58,8 @@ class ProductController extends Controller
             ]);
             return redirect(route('product.index'))->with(['success' => 'Produk Baru Ditambahkan']);
         }
+        return redirect(route('product.index'))->with(['error' => 'Produk Gagal Ditambahkan']);
+
     }
 
     public function edit($id)
@@ -75,7 +78,9 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'weight' => 'required|integer',
             'stock' => 'required|integer',
-            'image' => 'nullable|image|mimes:png,jpeg,jpg'
+            'image' => 'nullable|image|mimes:png,jpeg,jpg',
+            'type_weights' => 'required'
+
         ]);
 
         $product = Product::find($id);
@@ -87,7 +92,6 @@ class ProductController extends Controller
             $file->move($to, $filename);
             File::delete(storage_path('app/public/products/' . $product->image));
         }
-
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
@@ -95,7 +99,8 @@ class ProductController extends Controller
             'price' => $request->price,
             'weight' => $request->weight,
             'stock' => $request->stock,
-            'image' => $filename
+            'image' => $filename,
+            'type_weight' => $request->type_weights
         ]);
         return redirect(route('product.index'))->with(['success' => 'Data Produk Diperbaharui']);
     }
