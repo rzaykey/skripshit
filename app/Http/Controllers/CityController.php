@@ -8,6 +8,9 @@ use App\Province;
 use File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CityExport;
 
 class CityController extends Controller
 {
@@ -68,4 +71,9 @@ class CityController extends Controller
         $city->delete();
         return redirect(route('city.index'))->with(['success' => 'Kota Sudah Dihapus']);
     }
+
+    public function export_excel()
+{
+    return (new CityExport)->download('City.xlsx');
+}
 }

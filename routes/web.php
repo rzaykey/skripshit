@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user/{user_id}/edit', 'UserController@edit')->name('user.edit');
 	Route::put('/user/{user_id}', 'UserController@update')->name('user.update');
 	Route::delete('/user/{user_id}', 'UserController@destroy')->name('user.destroy');
+	Route::get('/user/export_excel', 'UserController@export_excel');
 
 	//customer
 	Route::resource('customer', 'CustomerController')->except(['show']);
@@ -66,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('/customer/{customer_id}', 'CustomerController@update')->name('customer.update');
 	Route::delete('/customer/{customer_id}', 'CustomerController@destroy')->name('customer.destroy');
 	
+	Route::get('/customer/export_excel', 'CustomerController@export_excel');
 
 	//category
 	Route::get('/category', 'CategoryController@index')->name('category.index');
@@ -73,19 +75,21 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/category/{category_id}/edit', 'CategoryController@edit')->name('category.edit');
 	Route::put('/category/{category_id}', 'CategoryController@update')->name('category.update');
 	Route::delete('/category/{category_id}', 'CategoryController@destroy')->name('category.destroy');
+	Route::get('/category/export_excel', 'CategoryController@export_excel');
 
 	//product
 	Route::resource('product', 'ProductController')->except(['show']);
     Route::get('/product/bulk', 'ProductController@massUploadForm')->name('product.bulk');
     Route::post('/product/bulk', 'ProductController@massUpload')->name('product.saveBulk');
     Route::post('/product/marketplace', 'ProductController@uploadViaMarketplace')->name('product.marketplace');
-
+	Route::get('/product/export_excel', 'ProductController@export_excel');
 	//city
 	Route::resource('city', 'CityController')->except(['show']);
 	Route::get('/city/{city_id}/edit', 'CityController@edit')->name('city.edit');
 	Route::put('/city/{city_id}', 'CityController@update')->name('city.update');
 	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');	
-
 	// Transaction
 	Route::get('/transaction','TransactionController@index')->name('transaction.index');
+	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');
+	Route::get('/city/export_excel', 'CityController@export_excel');
 });		

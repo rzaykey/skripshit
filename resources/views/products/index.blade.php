@@ -42,6 +42,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/product/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>

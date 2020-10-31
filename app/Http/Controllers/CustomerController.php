@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\District;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use File;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\CustomerExport;
 
 class CustomerController extends Controller
 {
@@ -82,5 +82,10 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->delete();
         return redirect(route('customer.index'))->with(['success' => 'Customer Sudah Dihapus']);
+    }
+
+    public function export_excel()
+    {
+        return (new CustomerExport)->download('Customer.xlsx');
     }
 }

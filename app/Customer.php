@@ -12,7 +12,7 @@ class Customer extends Auther
     use Notifiable;
     protected $guard = 'customer';
     protected $fillable = [
-        'name', 'email', 'password', 'address', 'district_id', 'status',
+        'name', 'email', 'password', 'address', 'city_id', 'status',
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -29,9 +29,9 @@ class Customer extends Auther
         }
         return '<span class="badge badge-success">Admin</span>';
     }
-    public function district()
+    public function city()
     {
-        return $this->belongsTo(District::class);
+        return $this->belongsTo(City::class);
     }
     public static function register($name, $email, $password, $address, $city_id)
     {

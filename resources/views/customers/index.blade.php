@@ -41,15 +41,15 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/customer/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
-                                            <th>Kecamatan</th>
+                                            <th>Kota</th>
                                             <th>Status</th>
-                                            <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -59,9 +59,8 @@
                                             <td><strong>{{ $row->name }}</strong></td>
                                             <td>{{ $row->email }}<br></td>
                                             <td>{{ $row->address }}<br></td>
-                                            <td>{{  $row->district->name }}</td>
+                                            <td>{{  $row->city->name }}</td>
                                             <td>{!! $row->status_label !!}</td>
-                                            <td>{{ $row->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 <form action="{{ route('customer.destroy', $row->id) }}" method="post">
                                                     @csrf
