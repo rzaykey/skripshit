@@ -87,7 +87,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('city', 'CityController')->except(['show']);
 	Route::get('/city/{city_id}/edit', 'CityController@edit')->name('city.edit');
 	Route::put('/city/{city_id}', 'CityController@update')->name('city.update');
+	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');	
+	// Transaction
+	Route::get('/transaction','TransactionController@index')->name('transaction.index');
 	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');
-	
 	Route::get('/city/export_excel', 'CityController@export_excel');
 });		

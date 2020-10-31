@@ -8,19 +8,19 @@
         <li class="nav-title">MANAJEMEN TRANSAKSI</li>
         <li class="nav-item">
         <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Transaksi Berhasil (1)
-            </a>
-        <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Transaksi Expire (1)
+                <i class="nav-icon icon-puzzle"></i>Transaksi Berhasil  ({{ (App\Transaction::where('status','SUCCESS')->count()) }})
             </a>
             <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Menunggu Dikirim (1)
+                <i class="nav-icon icon-puzzle"></i> Transaksi Batal ({{ (App\Transaction::where('status','CANCEL')->count()) }})
             </a>
             <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Barang Diterima (1)
+                <i class="nav-icon icon-puzzle"></i> Menunggu Dikirim ({{ (App\Transaction::where('status','CONFIRMED')->count()) }})
+            </a>
+            <a class="nav-link" href="{{ route('transaction.index') }}">
+                <i class="nav-icon icon-puzzle"></i> Konfirmasi({{ (App\Transaction::where('status','PAID')->count()) }})
             </a>
             <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="nav-icon icon-puzzle"></i> Barang Return (1)
+                <i class="nav-icon icon-puzzle"></i> Barang Return ({{ (App\Transaction::where('status','RETURN')->count()) }})
             </a>
         </li>
         <li class="nav-title">MANAJEMEN USER</li>
