@@ -55,6 +55,7 @@
                                     @endforeach
                                 </select>
 							</div>
+							
 							<div class="col-md-12 form-group">
 								<input type="password" class="form-control" id="password" name="password" placeholder="******">
 							</div>
