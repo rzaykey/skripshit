@@ -1,8 +1,8 @@
 <?php 
 
-Route::post('/api/cost', 'CartController@getCourier')->name('cost');
 
 Route::group(['prefix' => 'member'], function() {
+	
 		Route::get('login', 'LoginController@loginForm')->name('customer.login');
 		Route::post('login', 'LoginController@login')->name('customer.post_login');
 		Route::get('register','LoginController@register')->name('customer.register');
@@ -27,7 +27,10 @@ Route::group(['middleware' => 'customer'], function() {
 		Route::post('/cart/update', 'CartController@updateCart')->name('front.update_cart');
 		Route::get('/checkout', 'CartController@checkout')->name('front.checkout');
 		Route::post('/checkout', 'CartController@processCheckout')->name('front.store_checkout');
-		Route::get('/checkout/{invoice}', 'CartController@checkoutFinish')->name('front.finish_checkout');
+		Route::get('/checkout/success/{id}', 'CartController@checkoutFinish')->name('front.finish_checkout');
+		Route::post('/api/cost', 'CartController@getCourier')->name('cost');
+
+		Route::get('/checkout/success/cancel/{id}', 'CartController@cancel')->name('cancel');
 	});
 
 //admin

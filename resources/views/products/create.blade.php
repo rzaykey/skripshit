@@ -61,14 +61,6 @@
                                     <p class="text-danger">{{ $errors->first('price') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="weight">Tipe Berat</label>
-                                    <select name="type_weight" id="type_weight" class="form-control">
-                                        <option value="Pilih">Pilih</option>
-                                        <option value="Kilogram">Kg</option>
-                                        <option value="Miligram">Ml</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="weight">Berat</label>
                                     <input type="number" id="weight" name="weight" class="form-control" value="{{ old('weight') }}" required>
 

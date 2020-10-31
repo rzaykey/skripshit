@@ -83,8 +83,9 @@
                             <p class="text-danger">{{ $errors->first('district_id') }}</p>
                         </div>
                         <div class="col-md-12 form-group p_star">
+                         
                             <label for="">Kurir</label>
-                            <input type="hidden" name="weight" id="weight" value="{{ $weight }}">
+                            <input type="hidden" name="weight" id="weight" value="{{ $weight }}"> <div id="la" hidden>( <small style="color: red">Loading</small> )</div> 
                             <select class="form-control" name="courier" id="courier" required>
                                 <option value="">Pilih Kurir</option>
                             </select>
@@ -195,25 +196,35 @@
                     $.each(html.rajaongkir.results, (key, value) => {
                         $.each(value.costs, (key2, valu2) => {
                             $.each(valu2.cost, (key3, value3) => {
-                            let courier = value.code + ' - ' + valu2.service + ' (Rp ' + value3.value + ' ) '
-                            $('#courier').append('<option value='+ courier +'>' + courier + '</option>')
+                            let courier = value.code + ' ' + valu2.service + ' ( Rp ' + value3.value + ' ) '
+                            $('#courier').append(`<option value="`+ courier +`">` + courier + `</option>`)
+                            // console.log(courier)
                             })
                         })
                     })
                 },
                 beforeSend: function(){
                     $('#courier').empty()
+                    $('#la').removeAttr('hidden','')
+                },
+                afterSend: function() {
+                    $('#la').attr('hidden','')
+                },
+                complete: function()
+                {
+                    $('#la').attr('hidden','')
+
                 }
             });
         })
 
-        $('#courier').on('change', function() {
-            let split = $(this).val().split('-')
-            $('#ongkir').text('Rp ' + split[2])
+        // $('#courier').on('change', function() {
+        //     let split = $(this).val().split('-')
+        //     $('#ongkir').text('Rp ' + split[2])
 
-            let subtotal = "{{ $subtotal }}"
-            let total = parseInt(subtotal) + parseInt(split['2'])
-            $('#total').text('Rp' + total)
-        })
+        //     let subtotal = "{{ $subtotal }}"
+        //     let total = parseInt(subtotal) + parseInt(split['2'])
+        //     $('#total').text('Rp' + total)
+        // })
     </script>
 @endsection

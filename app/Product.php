@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
+    protected $fillable = ['name','slug','category_id','description','image','price','weight','status','stock','type_weight'];
     protected $guarded = [];
 
     public function getStatusLabelAttribute()

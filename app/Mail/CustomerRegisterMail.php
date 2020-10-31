@@ -22,6 +22,7 @@ class CustomerRegisterMail extends Mailable
   
     public function __construct(Customer $customer, $randomPassword)
     {
+        $this->middleware('auth:customer')->except(['logout']);
         $this->customer = $customer;
         $this->randomPassword = $randomPassword;
     }

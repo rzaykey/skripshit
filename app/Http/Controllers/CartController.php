@@ -11,6 +11,7 @@ use App\District;
 use App\Customer;
 use App\Order;
 use App\OrderDetail;
+use App\Transaction;
 use Illuminate\Support\Str;
 use DB;
 use App\Mail\CustomerRegisterMail;
@@ -18,10 +19,11 @@ use Mail;
 use Cookie;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class CartController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
         $this->middleware('auth:customer');
     }
@@ -52,7 +54,7 @@ class CartController extends Controller
             ];
         }
         $cookie = cookie('rs-carts', json_encode($carts), 2880);
-        return redirect()->back()->cookie($cookie);
+        return redirect('/cart')->cookie($cookie);
     }
     public function listCart()
     {
@@ -90,17 +92,6 @@ class CartController extends Controller
         return view('ecommerce.checkout', compact('provinces', 'carts', 'subtotal', 'weight'));
     }
 
-    public function getCity(Request $request)
-    {
-        $cities = City::where('province_id', request()->province_id)->get();
-        return response()->json(['status' => 'success', 'data' => $cities]);
-    }
-
-        public function getDistrict(Request $request)
-    {
-        $districts = District::where('city_id', request()->city_id)->get();
-        return response()->json(['status' => 'success', 'data' => $districts]);
-    }
 
     public function processCheckout(Request $request)
     {
@@ -114,70 +105,99 @@ class CartController extends Controller
             'district_id' => 'required|exists:districts,id',
             'courier' => 'required'
         ]);
+        
 
-        DB::beginTransaction();
         try {
-            $customer = Customer::where('email', $request->email)->first();
-            if (!auth()->check() && $customer) {
-                return redirect()->back()->with(['error' => 'Silahkan Login Terlebih Dahulu']);
+            $pecah_kurir = explode(" ", $request->courier);
+            $keranjang = json_encode($this->getCarts());
+            $total = 0;
+            $shipping = 0;
+            
+            foreach($this->getCarts() as $cart)
+            {
+                $total += $cart['product_price'];
             }
-            $carts = $this->getCarts();
-            $subtotal = collect($carts)->sum(function($q) {
-                return $q['qty'] * $q['product_price'];
-            });
-                $password = 123123;
-                $customer = Customer::create([
-                    'name' => $request->customer_name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request['password']),
-                    'phone_number' => $request->customer_phone,
-                    'address' => $request->customer_address,
-                    'district_id' => $request->district_id,
-                    'status' => false
-                ]);
-
-            $shipping = explode('-', $request->courier);
-            $order = Order::create([
-                'invoice' => Str::random(4) . '-' . time(),
-                'customer_id' => $customer->id,
-                'customer_name' => $customer->name,
-                'customer_phone' => $request->customer_phone,
-                'customer_address' => $request->customer_address,
-                'district_id' => $request->district_id,
-                'subtotal' => $subtotal,
-                'cost' => $shipping[2],
-                'shipping' => $shipping[0] . '-' . $shipping[1]
+            $transaction = Transaction::create([
+                'data' => $keranjang,
+                'subtotal' => $total,
+                'payments' => 'COD',
+                'sent_by' => $pecah_kurir[0],
+                'resi' => 0,
+                'from' => 2,
+                'to' => $request->city_id, 
+                'id_customer' => Auth::id(),
+                'status' => 'PAID',
+                'shipping' => $pecah_kurir[4]
             ]);
-            foreach ($carts as $row) {
-                $product = Product::find($row['product_id']);
-                OrderDetail::create([
-                    'order_id' => $order->id,
-                    'product_id' => $row['product_id'],
-                    'price' => $row['product_price'],
-                    'qty' => $row['qty'],
-                    'weight' => $product->weight
-                ]);
-            }
-            DB::commit();
-
-            $carts = [];
-            $cookie = cookie('rs-carts', json_encode($carts), 2880);
-
-            return redirect(route('front.finish_checkout', $order->invoice))->cookie($cookie);
-        } catch (\Exception $e) {
-            DB::rollback();
+            return redirect(route('front.finish_checkout', $transaction->id));
+        }catch (\Exception $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
+
+        // DB::beginTransaction();
+        // try {
+        //     $customer = Customer::where('email', $request->email)->first();
+        //     if (!auth()->check() && $customer) {
+        //         return redirect()->back()->with(['error' => 'Silahkan Login Terlebih Dahulu']);
+        //     }
+        //     $carts = $this->getCarts();
+        //     $subtotal = collect($carts)->sum(function($q) {
+        //         return $q['qty'] * $q['product_price'];
+        //     });
+        //         $password = 123123;
+        //         $customer = Customer::create([
+        //             'name' => $request->customer_name,
+        //             'email' => $request->email,
+        //             'password' => Hash::make($request['password']),
+        //             'phone_number' => $request->customer_phone,
+        //             'address' => $request->customer_address,
+        //             'district_id' => $request->district_id,
+        //             'status' => false
+        //         ]);
+
+        //     $shipping = explode('-', $request->courier);
+        //     $order = Order::create([
+        //         'invoice' => Str::random(4) . '-' . time(),
+        //         'customer_id' => $customer->id,
+        //         'customer_name' => $customer->name,
+        //         'customer_phone' => $request->customer_phone,
+        //         'customer_address' => $request->customer_address,
+        //         'district_id' => $request->district_id,
+        //         'subtotal' => $subtotal,
+        //         'cost' => $shipping[2],
+        //         'shipping' => $shipping[0] . '-' . $shipping[1]
+        //     ]);
+        //     foreach ($carts as $row) {
+        //         $product = Product::find($row['product_id']);
+        //         OrderDetail::create([
+        //             'order_id' => $order->id,
+        //             'product_id' => $row['product_id'],
+        //             'price' => $row['product_price'],
+        //             'qty' => $row['qty'],
+        //             'weight' => $product->weight
+        //         ]);
+        //     }
+        //     DB::commit();
+
+        //     $carts = [];
+        //     $cookie = cookie('rs-carts', json_encode($carts), 2880);
+
+        //     return redirect(route('front.finish_checkout', $order->invoice))->cookie($cookie);
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return redirect()->back()->with(['error' => $e->getMessage()]);
+        // }
     }
 
     public function checkoutFinish($invoice)
     {
-        $order = Order::with(['district.city'])->where('invoice', $invoice)->first();
-        return view('ecommerce.checkout_finish', compact('order'));
+        
+        return view('ecommerce.checkout_finish', ['order' => Transaction::find($invoice)]);
     }
 
     public function getCourier(Request $request)
     {
+
     $this->validate($request, [
         'destination' => 'required',
         'weight' => 'required|integer'
@@ -208,6 +228,15 @@ class CartController extends Controller
         return json_decode($response, true);
 
    
+    }
+    public function cancel($id)
+    {
+        $transaction = Transaction::find($id);
+        $transaction->status = "CANCEL";
+        if($transaction->save())
+        {
+            return redirect()->back()->with(['cancel' => true]);
+        }
     }
 
 }

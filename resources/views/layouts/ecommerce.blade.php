@@ -18,6 +18,8 @@
 	
 	<link rel="stylesheet" href="{{ asset('ecommerce/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('ecommerce/css/responsive.css') }}">
+	<script src="{{ asset('ecommerce/js/jquery-3.2.1.min.js') }}"></script>
+	
 </head>
 
 <body>
@@ -219,9 +221,7 @@
 	</footer>
 	<!--================ End footer Area  =================-->
 
-	<script src="{{ asset('ecommerce/js/jquery-3.2.1.min.js') }}"></script>
 	<script src="{{ asset('ecommerce/js/popper.js') }}"></script>
-	<script src="{{ asset('ecommerce/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('ecommerce/js/stellar.js') }}"></script>
 	<script src="{{ asset('ecommerce/vendors/lightbox/simpleLightbox.min.js') }}"></script>
 	<script src="{{ asset('ecommerce/vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
