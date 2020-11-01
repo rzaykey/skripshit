@@ -47,35 +47,22 @@
                                             <th>Name</th>
                                             <th>E-mail</th>
                                             <th>Address</th>
-                                            <th>Kecamatan</th>
-                                            <th>Status</th>
+                                            <th>Kota</th>
                                             <th>Created at</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($customer as $row)
-                                        <tr>
-                                            <td><strong>{{ $row->name }}</strong></td>
-                                            <td>{{ $row->email }}<br></td>
-                                            <td>{{ $row->address }}<br></td>
-                                            <td>{{  $row->district->name }}</td>
-                                            <td>{!! $row->status_label !!}</td>
-                                            <td>{{ $row->created_at->format('d-m-Y') }}</td>
-                                            <td>
-                                                <form action="{{ route('customer.destroy', $row->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('customer.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                                    <button onclick="return confirm('Hapus ?')" class="btn btn-danger btn-sm">Hapus</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <tr>
-                                            <td colspan="6" class="text-center">Tidak ada data</td>
-                                        </tr>
-                                        @endforelse
+                                        @foreach($customer as $data)
+                                            <tr>
+                                                <td>{{ $data->name }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->address }}</td>
+                                                <td>{{ App\City::find($data->city_id)->type . ' ' . App\City::find($data->city_id)->name }}</td>
+                                                <td>{{ date('Y/m/d', strtotime($data->created_at)) }}</td>
+                                                <td><a href="#">Hapus</a></td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -7,19 +7,19 @@
         </li>
         <li class="nav-title">MANAJEMEN TRANSAKSI</li>
         <li class="nav-item">
-        <a class="nav-link" href="{{ route('user.index') }}">
+        <a class="nav-link" href="{{ route('transaction.success') }}">
                 <i class="nav-icon icon-puzzle"></i>Transaksi Berhasil  ({{ (App\Transaction::where('status','SUCCESS')->count()) }})
             </a>
-            <a class="nav-link" href="{{ route('user.index') }}">
+            <a class="nav-link" href="{{ route('transaction.cancels') }}">
                 <i class="nav-icon icon-puzzle"></i> Transaksi Batal ({{ (App\Transaction::where('status','CANCEL')->count()) }})
             </a>
-            <a class="nav-link" href="{{ route('user.index') }}">
+            <a class="nav-link" href="{{ route('transaction.waiting') }}">
                 <i class="nav-icon icon-puzzle"></i> Menunggu Dikirim ({{ (App\Transaction::where('status','CONFIRMED')->count()) }})
             </a>
             <a class="nav-link" href="{{ route('transaction.index') }}">
                 <i class="nav-icon icon-puzzle"></i> Konfirmasi({{ (App\Transaction::where('status','PAID')->count()) }})
             </a>
-            <a class="nav-link" href="{{ route('user.index') }}">
+            <a class="nav-link" href="{{ route('transaction.return') }}">
                 <i class="nav-icon icon-puzzle"></i> Barang Return ({{ (App\Transaction::where('status','RETURN')->count()) }})
             </a>
         </li>
