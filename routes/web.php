@@ -90,6 +90,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');	
 	// Transaction
 	Route::get('/transaction','TransactionController@index')->name('transaction.index');
+	Route::get('/transaction/confirm/{id}', 'TransactionController@confirm')->name('transaction.confirm');
+	Route::get('/transaction/detail/{id}', 'TransactionController@detail')->name('transaction.detail');
+	Route::get('/transaction/cancel/{id}', 'TransactionController@cancel')->name('transaction.cancel');
+	Route::get('/transaction/cancel', 'TransactionController@cancels')->name('transaction.cancels');
+	Route::get('/transaction/waiting-send', 'TransactionController@waiting')->name('transaction.waiting');
+	Route::get('/transaction/waiting-send/{id}', 'TransactionController@waitings')->name('transaction.waitings');
+	Route::get('/transaction/success', 'TransactionController@success')->name('transaction.success');
+	Route::get('/transaction/return', 'TransactionController@return')->name('transaction.return');
 	Route::delete('/city/{city_id}', 'CityController@destroy')->name('city.destroy');
 	Route::get('/city/export_excel', 'CityController@export_excel');
 });		

@@ -49,11 +49,22 @@
                                             <th>E-mail</th>
                                             <th>Address</th>
                                             <th>Kota</th>
+                                            <th>Created at</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($customer as $data)
+                                            <tr>
+                                                <td>{{ $data->name }}</td>
+                                                <td>{{ $data->email }}</td>
+                                                <td>{{ $data->address }}</td>
+                                                <td>{{ App\City::find($data->city_id)->type . ' ' . App\City::find($data->city_id)->name }}</td>
+                                                <td>{{ date('Y/m/d', strtotime($data->created_at)) }}</td>
+                                                <td><a href="#">Hapus</a></td>
+                                            </tr>
+                                        @endforeach
                                         @forelse ($customer as $row)
                                         <tr>
                                             <td><strong>{{ $row->name }}</strong></td>

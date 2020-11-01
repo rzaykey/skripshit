@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Exports\CustomerExport;
 
 class CustomerController extends Controller
-{
+{ 
     //
     public function index()
     {
