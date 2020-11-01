@@ -41,6 +41,7 @@
                                 </div>
                             </form>
                             <div class="table-responsive">
+                                <a href="/customer/export_excel" class="btn btn-success my-3" target="_blank">EXPORT EXCEL</a>
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
@@ -49,6 +50,7 @@
                                             <th>Address</th>
                                             <th>Kota</th>
                                             <th>Created at</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -63,6 +65,27 @@
                                                 <td><a href="#">Hapus</a></td>
                                             </tr>
                                         @endforeach
+                                        @forelse ($customer as $row)
+                                        <tr>
+                                            <td><strong>{{ $row->name }}</strong></td>
+                                            <td>{{ $row->email }}<br></td>
+                                            <td>{{ $row->address }}<br></td>
+                                            <td>{{  $row->city->name }}</td>
+                                            <td>{!! $row->status_label !!}</td>
+                                            <td>
+                                                <form action="{{ route('customer.destroy', $row->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="{{ route('customer.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                                    <button onclick="return confirm('Hapus ?')" class="btn btn-danger btn-sm">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">Tidak ada data</td>
+                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

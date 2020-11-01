@@ -9,6 +9,9 @@ use App\Category;
 use File;
 use App\Jobs\ProductJob;
 
+use App\Exports\ProductExport;
+
+
 class ProductController extends Controller
 {
     public function index()
@@ -134,5 +137,9 @@ class ProductController extends Controller
             ProductJob::dispatch($request->category_id, $filename);
             return redirect()->back()->with(['success' => 'Upload Produk Dijadwalkan']);
         }
+    }
+    public function export_excel()
+    {
+        return (new ProductExport)->download('Produk.xlsx');
     }
 }

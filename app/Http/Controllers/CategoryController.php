@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Exports\CategoryExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -52,5 +55,9 @@ class CategoryController extends Controller
         }
         return redirect(route('category.index'))->with(['error' => 'Kategori Ini Memiliki Anak Kategori!']);
     }
+    public function export_excel()
+    {
+		return Excel::download(new CategoryExport, 'Kategori.xlsx');
+	}
 
 }
